@@ -63,4 +63,4 @@ app.all('*', (req, res) => {
     }
   });
   app.use(errorHandler);
-app.listen(8001,()=>{console.log('server started at 8001')})
+app.listen(process.env.PORT,()=>{console.log('server started at 8001')})
