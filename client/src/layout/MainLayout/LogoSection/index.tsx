@@ -10,9 +10,10 @@ import Logo from 'ui-component/Logo';
 // ==============================|| MAIN LOGO ||============================== //
 
 const LogoSection = () => (
-    <Link component={RouterLink} to={DASHBOARD_PATH}>
-        <Logo />
-    </Link>
+    // <Link component={RouterLink} to={DASHBOARD_PATH}>
+    // <Logo />
+    // </Link>
+    <>Logo</>
 );
 
 export default LogoSection;
