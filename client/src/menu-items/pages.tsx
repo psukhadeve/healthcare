@@ -2,14 +2,15 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { IconKey, IconBug } from '@tabler/icons';
+import { IconBrandChrome, IconKey, IconBug } from '@tabler/icons';
 
 import { NavItemType } from 'types';
 
 // constant
 const icons = {
     IconKey,
-    IconBug
+    IconBug,
+    IconBrandChrome
 };
 
 // ==============================|| EXTRA PAGES MENU ITEMS ||============================== //
@@ -17,15 +18,15 @@ const icons = {
 const pages: NavItemType = {
     id: 'pages',
     title: <FormattedMessage id="pages" />,
-    caption: <FormattedMessage id="pages-caption" />,
+    // caption: <FormattedMessage id="pages-caption" />,
     icon: icons.IconKey,
     type: 'group',
     children: [
         {
-            id: 'maintenance',
-            title: <FormattedMessage id="maintenance" />,
+            id: 'Seller-dashboard',
+            title: <FormattedMessage id="Seller-dashboard" />,
             type: 'collapse',
-            icon: icons.IconBug,
+            icon: icons.IconBrandChrome,
             children: [
                 {
                     id: 'error',
