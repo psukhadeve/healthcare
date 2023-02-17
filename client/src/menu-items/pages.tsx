@@ -29,12 +29,20 @@ const pages: NavItemType = {
             icon: icons.IconBrandChrome,
             children: [
                 {
+                    id: 'booked-items',
+                    title: <FormattedMessage id="booked-items" />,
+                    type: 'item',
+                    url: '/pages/booked-items',
+                    target: true
+                },
+                {
                     id: 'error',
                     title: <FormattedMessage id="error-404" />,
                     type: 'item',
                     url: '/pages/error',
                     target: true
                 },
+
                 {
                     id: 'coming-soon',
                     title: <FormattedMessage id="coming-soon" />,
