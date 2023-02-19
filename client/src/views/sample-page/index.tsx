@@ -8,15 +8,15 @@ import MainCard from 'ui-component/cards/MainCard';
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const SamplePage = () => {
-    async function registerAndSubscribe() {
-        try {
-            const serviceWorkerReg = await regSw();
-            await subscribe(serviceWorkerReg);
-        } catch (error) {
-            console.log(error, 'k');
-        }
-    }
-    registerAndSubscribe();
+    // async function registerAndSubscribe() {
+    //     try {
+    //         const serviceWorkerReg = await regSw();
+    //         await subscribe(serviceWorkerReg);
+    //     } catch (error) {
+    //         console.log(error, 'k');
+    //     }
+    // }
+    // registerAndSubscribe();
 
     return (
         <>
