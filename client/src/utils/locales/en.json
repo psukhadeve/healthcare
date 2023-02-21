@@ -104,6 +104,11 @@
     "price": "Price",
     "maintenance": "Maintenance",
     "error-404": "Error 404",
+    "booked-items": "Booked Products",
+    "listed-products": "Listed Products",
+    "product-ratings": "Products Ratings",
+    "add-products": "Add Products",
+    
     "coming-soon": "Coming Soon",
     "under-construction": "Under Construction",
     "landing": "Landing",

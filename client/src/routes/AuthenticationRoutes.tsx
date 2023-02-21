@@ -9,6 +9,7 @@ const MaintenanceError = Loadable(lazy(() => import('views/pages/maintenance/Err
 const MaintenanceComingSoon1 = Loadable(lazy(() => import('views/pages/maintenance/ComingSoon/ComingSoon1')));
 const MaintenanceComingSoon2 = Loadable(lazy(() => import('views/pages/maintenance/ComingSoon/ComingSoon2')));
 const MaintenanceUnderConstruction = Loadable(lazy(() => import('views/pages/maintenance/UnderConstruction')));
+const BookedItems = Loadable(lazy(() => import('views/pages/seller-pages/booked-items')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
@@ -31,6 +32,10 @@ const AuthenticationRoutes = {
         {
             path: '/pages/under-construction',
             element: <MaintenanceUnderConstruction />
+        },
+        {
+            path: '/pages/booked-items',
+            element: <BookedItems />
         }
     ]
 };

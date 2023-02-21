@@ -20,32 +20,64 @@ const other: NavItemType = {
     icon: IconBrandChrome,
     type: 'group',
     children: [
+        // {
+        //     id: 'sample-page',
+        //     title: <FormattedMessage id="sample-page" />,
+        //     type: 'item',
+        //     url: '/sample-page',
+        //     icon: icons.IconBrandChrome,
+        //     breadcrumbs: false
+        // },
         {
-            id: 'sample-page',
-            title: <FormattedMessage id="sample-page" />,
+            id: 'booked-items',
+            title: <FormattedMessage id="booked-items" />,
             type: 'item',
-            url: '/sample-page',
+            url: '/booked-items',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },
         {
-            id: 'documentation',
-            title: <FormattedMessage id="documentation" />,
+            id: 'listed-products',
+            title: <FormattedMessage id="listed-products" />,
             type: 'item',
-            url: 'https://codedthemes.gitbook.io/berry/',
-            icon: icons.IconHelp,
-            external: true,
-            target: true
+            url: '/listed-products',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
         },
         {
-            id: 'roadmap',
-            title: <FormattedMessage id="roadmap" />,
+            id: 'product-ratings',
+            title: <FormattedMessage id="product-ratings" />,
             type: 'item',
-            url: 'https://codedthemes.gitbook.io/berry/roadmap',
-            icon: icons.IconSitemap,
-            external: true,
-            target: true
+            url: '/product-ratings',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
+        },
+        {
+            id: 'add-products',
+            title: <FormattedMessage id="add-products" />,
+            type: 'item',
+            url: '/add-products',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
         }
+        // {
+        //     id: 'documentation',
+        //     title: <FormattedMessage id="documentation" />,
+        //     type: 'item',
+        //     url: 'https://codedthemes.gitbook.io/berry/',
+        //     icon: icons.IconHelp,
+        //     external: true,
+        //     target: true
+        // },
+        // {
+        //     id: 'roadmap',
+        //     title: <FormattedMessage id="roadmap" />,
+        //     type: 'item',
+        //     url: 'https://codedthemes.gitbook.io/berry/roadmap',
+        //     icon: icons.IconSitemap,
+        //     external: true,
+        //     target: true
+        // }
     ]
 };
 
