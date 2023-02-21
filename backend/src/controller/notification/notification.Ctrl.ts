@@ -1,5 +1,5 @@
 import webpush from 'web-push';
-
+require('dotenv').config();
 /*
 request body:
 {
@@ -18,19 +18,36 @@ request body:
 
 export const notification_Post=async(req:any,res:any)=>{
     
-    console.log("ll",req.body.seller_id)
-    
-    const subscription = req.body.subscription;
-    console.log(subscription.endpoint)
-    const payload = JSON.stringify({ title: 'Push Notification'+req.body });
-    
-    webpush.sendNotification(subscription, payload)
-        .then(() => {
-        res.status(200).json({ message: 'Notification sent' + req.body });
-        })
-        .catch((error: { message: any; }) => {
-        res.status(500).json({ error: error.message });
-        });
+    const options = {
+        vapidDetails: {
+          subject: 'mailto:myemail@example.com',
+          publicKey: "BBvNwVAElLgs6PUcTcPoHFne_ztWOBRuCzjxq4zCF3SfOl0okVRc6Nhni-Br0Sx-81-F470c6k9iQ6x2EzR5NwE",
+          privateKey: "kDF4CNx4sZmuY44A5Z5eOhLkQm_XhNCJbuDkSWWMMEU",
+        },
+      };
+      console.log("process.env.PUBLIC_VAPID_KEY",process.env.PUBLIC_VAPID_KEY)
+      webpush.setVapidDetails(
+        "mailto:myemail@example.com",
+         "BBvNwVAElLgs6PUcTcPoHFne_ztWOBRuCzjxq4zCF3SfOl0okVRc6Nhni-Br0Sx-81-F470c6k9iQ6x2EzR5NwE",
+           "kDF4CNx4sZmuY44A5Z5eOhLkQm_XhNCJbuDkSWWMMEU",
+         
+    );
+    try {
+        const res2 = await webpush.sendNotification (
+          req.body,
+          JSON.stringify ({
+            title: 'Hello from server',
+            description: 'this message is coming from the server',
+            image: 'https://cdn2.vectorstock.com/i/thumb-large/94/66/emoji-smile-icon-symbol-smiley-face-vector-26119466.jpg',
+            actions: [{ action: "Detail", title: "View", icon: "https://via.placeholder.com/128/ff0000" }]
+          }),
+          options
+        );
+        res.sendStatus(200)
+      } catch (error) {
+        console.log (error);
+        res.sendStatus (500);
+      }
   
     
 }
