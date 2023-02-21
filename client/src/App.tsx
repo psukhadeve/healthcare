@@ -26,12 +26,12 @@ const App = () => {
             console.log(error);
         }
     }
-     registerAndSubscribe();
+    registerAndSubscribe();
 
     return (
         <ThemeCustomization>
             {/* RTL layout */}
-            
+
             <RTLLayout>
                 <Locales>
                     <NavigationScroll>
