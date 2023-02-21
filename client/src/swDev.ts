@@ -15,9 +15,9 @@ function urlBase64ToUint8Array(base64String: any) {
 }
 async function regSw() {
     function isPushNotificationSupported() {
-        return "serviceWorker" in navigator && "PushManager" in window;
+        return 'serviceWorker' in navigator && 'PushManager' in window;
     }
-    console.log("===",isPushNotificationSupported(),"+===")
+    console.log('===', isPushNotificationSupported(), '+===');
     if ('serviceWorker' in navigator) {
         const url = process.env.PUBLIC_URL + '/sw.js';
         //let url = 'http://localhost:3001/sw.js';
