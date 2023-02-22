@@ -64,6 +64,7 @@ const Login = () => {
                                     <Grid item xs={12}>
                                         <AuthLogin />
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <Divider />
                                     </Grid>

@@ -48,11 +48,12 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
 
     const { firebaseEmailPasswordSignIn, firebaseGoogleSignIn } = useAuth();
     const googleHandler = async () => {
-        try {
-            await firebaseGoogleSignIn();
-        } catch (err) {
-            console.error(err);
-        }
+        // try {
+        //     await window.open('http://localhost:8001/api/google', '_self');
+        // } catch (err) {
+        //     console.error(err);
+        // }
+        window.open('http://localhost:8001/api/google', '_self');
     };
 
     const [showPassword, setShowPassword] = React.useState(false);
