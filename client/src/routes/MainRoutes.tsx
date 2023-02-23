@@ -9,6 +9,8 @@ import Loadable from 'ui-component/Loadable';
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const BookedItems = Loadable(lazy(() => import('views/pages/seller-pages/booked-items')));
 const ListedItems = Loadable(lazy(() => import('views/pages/seller-pages/listed-products')));
+const AddProducts = Loadable(lazy(() => import('views/pages/seller-pages/add-product')));
+const ProductsRatings = Loadable(lazy(() => import('views/pages/seller-pages/products-ratings')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -38,11 +40,11 @@ const MainRoutes = {
         },
         {
             path: '/product-ratings',
-            element: <ListedItems />
+            element: <ProductsRatings />
         },
         {
             path: '/add-products',
-            element: <ListedItems />
+            element: <AddProducts />
         }
     ]
 };

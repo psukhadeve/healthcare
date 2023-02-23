@@ -36,14 +36,14 @@ const other: NavItemType = {
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },
-        {
-            id: 'listed-products',
-            title: <FormattedMessage id="listed-products" />,
-            type: 'item',
-            url: '/listed-products',
-            icon: icons.IconBrandChrome,
-            breadcrumbs: false
-        },
+        // {
+        //     id: 'listed-products',
+        //     title: <FormattedMessage id="listed-products" />,
+        //     type: 'item',
+        //     url: '/listed-products',
+        //     icon: icons.IconBrandChrome,
+        //     breadcrumbs: false
+        // },
         {
             id: 'product-ratings',
             title: <FormattedMessage id="product-ratings" />,

@@ -40,12 +40,16 @@ const BookedItems = () => {
         }
     ];
     // const rows: any = [];
+
     const rows = [
         { id: 1, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 2, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 3, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 4, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 5, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' }
     ];
 
