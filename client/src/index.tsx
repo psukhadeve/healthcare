@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 // project imports
 import App from 'App';
 import { BASE_PATH } from 'config';
-import { store } from 'store';
+import { store, sagaMiddleware } from 'store';
+// import { sagaMiddleware, store1 } from './redux-store/store';
+import rootSaga from './redux-store/saga/rootSaga';
 // import * as serviceWorker from 'serviceWorker';
 import reportWebVitals from 'reportWebVitals';
 import { ConfigProvider } from 'contexts/ConfigContext';
@@ -19,6 +21,7 @@ import 'assets/scss/style.scss';
 
 const container = document.getElementById('root');
 const root = createRoot(container!); // createRoot(container!) if you use TypeScript
+sagaMiddleware.run(rootSaga);
 root.render(
     <Provider store={store}>
         <ConfigProvider>
