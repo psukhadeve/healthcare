@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -36,15 +38,22 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/google.svg';
+import BannerMessage from 'banner-message';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const loginRes = useSelector((state: any) => state?.authReducer?.login);
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const { borderRadius } = useConfig();
     const [checked, setChecked] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
+    const [severity, setSeverity] = React.useState('');
+    const [msg, setMsg] = React.useState('');
 
     const { firebaseEmailPasswordSignIn, firebaseGoogleSignIn } = useAuth();
     const googleHandler = async () => {
@@ -64,9 +73,88 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
     const handleMouseDownPassword = (event: React.SyntheticEvent) => {
         event.preventDefault();
     };
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
+    const isEmptyObject: any = (selector: any) => {
+        return JSON.stringify(selector) === '{}';
+    };
+    React.useEffect(() => {
+        if (loginRes === undefined) {
+            return;
+        }
+        // alert('Hello Logged In');
+        console.log('loginRes', loginRes);
+    }, [loginRes]);
+
+    React.useEffect(() => {
+        if (isEmptyObject(loginRes)) {
+            return;
+        } else if (loginRes === undefined) {
+            return;
+        } else {
+            localStorage.setItem('loginRes', JSON.stringify(loginRes));
+            if (loginRes?.status === '201' && loginRes?.user[0]?.role === 0) {
+                setSeverity('success');
+                setMsg('You as a buyer Logged In successfully');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    navigate('/buyer-dashboard');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (loginRes?.status === '201' && loginRes?.user[0]?.role === 1) {
+                setSeverity('success');
+                setMsg('You as a seller Logged In successfully');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    navigate('/booked-items');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (loginRes?.status === '400') {
+                setSeverity('error');
+                setMsg('You have entered wrong password');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    //   setIsloading(!isLoading);
+                    navigate('/login');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (loginRes.status === '309') {
+                setSeverity('info');
+                setMsg('User not registered please sign up');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    //   setIsloading(!isLoading);
+                    navigate('/login');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            }
+        }
+    }, [loginRes]);
+
+    let handleLogin = async (values: any) => {
+        // saga dispatch
+        // setIsloading(!isLoading);
+        // let items={(values.email), values.password}
+        dispatch({ type: 'SIGN_IN_USER', payload: values });
+    };
 
     return (
         <>
+            <BannerMessage open={open} onClose={handleClose} severity={severity} msg={msg} />
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12}>
                     <AnimateButton>
@@ -128,42 +216,22 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
                     </Box>
                 </Grid>
             </Grid>
-
+            {/* 
+ email: 'info@codedthemes.com',
+                    password: '123456',
+*/}
             <Formik
                 initialValues={{
-                    email: 'info@codedthemes.com',
-                    password: '123456',
-                    submit: null
+                    email: 's@gmail.com',
+                    password: '123'
+                    // submit: null
                 }}
                 validationSchema={Yup.object().shape({
                     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
                     password: Yup.string().max(255).required('Password is required')
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        await firebaseEmailPasswordSignIn(values.email, values.password).then(
-                            () => {
-                                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                                // github issue: https://github.com/formium/formik/issues/2430
-                            },
-                            (err: any) => {
-                                if (scriptedRef.current) {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: err.message });
-                                    setSubmitting(false);
-                                }
-                            }
-                        );
-                    } catch (err: any) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
-                    }
+                    dispatch({ type: 'SIGN_IN_USER', payload: values });
                 }}
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
@@ -248,11 +316,11 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
                                 Forgot Password?
                             </Typography>
                         </Stack>
-                        {errors.submit && (
+                        {/* {errors.submit && (
                             <Box sx={{ mt: 3 }}>
                                 <FormHelperText error>{errors.submit}</FormHelperText>
                             </Box>
-                        )}
+                        )} */}
 
                         <Box sx={{ mt: 2 }}>
                             <AnimateButton>

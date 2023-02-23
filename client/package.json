@@ -12,7 +12,7 @@
         "@mui/material": "^5.11.3",
         "@mui/system": "^5.11.2",
         "@mui/utils": "^5.11.2",
-        "@mui/x-data-grid": "^5.17.17",
+        "@mui/x-data-grid": "^5.17.25",
         "@mui/x-date-pickers": "^5.0.12",
         "@reduxjs/toolkit": "^1.9.1",
         "@tabler/icons": "^1.119.0",

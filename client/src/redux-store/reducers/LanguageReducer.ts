@@ -1,17 +1,17 @@
 const initialState = {
-  languageTranslation: {},
+    languageTranslation: {}
 };
 
 function rootReducer(state = initialState, action: any) {
-  switch (action.type) {
-    case "LANGUAGE_TRANSLATION":
-      state.languageTranslation = action.payload;
-      return { languageTranslation: state.languageTranslation };
-      break;
+    switch (action.type) {
+        case 'LANGUAGE_TRANSLATION':
+            state.languageTranslation = action.payload;
+            return { languageTranslation: state.languageTranslation };
+            break;
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 }
 
 export default rootReducer;

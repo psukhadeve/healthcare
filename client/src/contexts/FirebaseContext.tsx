@@ -48,8 +48,19 @@ export const FirebaseProvider = ({ children }: { children: React.ReactElement })
                         }
                     });
                 } else {
+                    // dispatch({
+                    //     type: LOGOUT
+                    // });
                     dispatch({
-                        type: LOGOUT
+                        type: LOGIN,
+                        payload: {
+                            isLoggedIn: true,
+                            user: {
+                                id: '12',
+                                email: 's@gmail.com',
+                                name: 'Shubham Gupta'
+                            }
+                        }
                     });
                 }
             }),

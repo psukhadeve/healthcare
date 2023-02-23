@@ -1,15 +1,20 @@
 // third-party
-import { configureStore } from '@reduxjs/toolkit';
+import { applyMiddleware, configureStore, createStore } from '@reduxjs/toolkit';
 import { useDispatch as useAppDispatch, useSelector as useAppSelector, TypedUseSelectorHook } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
 
 // project imports
 import rootReducer from './reducer';
 
 // ==============================|| REDUX - MAIN STORE ||============================== //
+export const sagaMiddleware = createSagaMiddleware();
 
-const store = configureStore({
-    reducer: rootReducer
-});
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
+
+// const store = configureStore({
+//     reducer: rootReducer
+// });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
