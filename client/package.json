@@ -33,6 +33,7 @@
         "react-i18next": "^12.1.5",
         "react-intl": "^6.2.5",
         "react-markdown": "^8.0.4",
+        "react-mui-dropzone": "^4.0.6",
         "react-perfect-scrollbar": "^1.5.8",
         "react-redux": "^8.0.5",
         "react-router-dom": "^6.6.1",
