@@ -6,6 +6,8 @@ import MainCard from 'ui-component/cards/MainCard';
 const BookedItems = () => {
     const dispatch = useDispatch();
 
+    const [List, setList] = useState([]);
+
     useEffect(() => {
         dispatch({ type: 'LISTED_ITEMS' });
     }, []);
@@ -17,6 +19,9 @@ const BookedItems = () => {
             return;
         } else {
             console.log('all_Listed_Items useEffect', all_Listed_Items);
+            let newRow = all_Listed_Items.map((values: any, index: any) => ({ ...values, id: index + 1 }));
+
+            setList(newRow);
         }
     }, [all_Listed_Items]);
 
@@ -57,7 +62,7 @@ const BookedItems = () => {
         <>
             <MainCard title="Booked Items">
                 <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection={false} />
+                    <DataGrid rows={List} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection={false} />
                 </div>
             </MainCard>
         </>
