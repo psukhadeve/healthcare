@@ -61,8 +61,8 @@ const BookedItems = () => {
     return (
         <>
             <MainCard title="Booked Items">
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={List} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection={false} />
+                <div style={{ height: 670, width: '100%' }}>
+                    <DataGrid rows={List} columns={columns} pageSize={10} rowsPerPageOptions={[5]} checkboxSelection={false} />
                 </div>
             </MainCard>
         </>
