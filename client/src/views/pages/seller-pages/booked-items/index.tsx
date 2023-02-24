@@ -6,6 +6,8 @@ import MainCard from 'ui-component/cards/MainCard';
 const BookedItems = () => {
     const dispatch = useDispatch();
 
+    const [List, setList] = useState([]);
+
     useEffect(() => {
         dispatch({ type: 'LISTED_ITEMS' });
     }, []);
@@ -17,6 +19,9 @@ const BookedItems = () => {
             return;
         } else {
             console.log('all_Listed_Items useEffect', all_Listed_Items);
+            let newRow = all_Listed_Items.map((values: any, index: any) => ({ ...values, id: index + 1 }));
+
+            setList(newRow);
         }
     }, [all_Listed_Items]);
 
@@ -40,20 +45,24 @@ const BookedItems = () => {
         }
     ];
     // const rows: any = [];
+
     const rows = [
         { id: 1, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 2, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 3, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 4, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 5, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
+        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
         { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' }
     ];
 
     return (
         <>
-            <MainCard title="Booked Items">
-                <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection={false} />
+            <MainCard title="Listed Products">
+                <div style={{ height: 670, width: '100%' }}>
+                    <DataGrid rows={List} columns={columns} pageSize={10} rowsPerPageOptions={[5]} checkboxSelection={false} />
                 </div>
             </MainCard>
         </>

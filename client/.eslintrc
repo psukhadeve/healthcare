@@ -22,6 +22,8 @@
                 "ignoreNonDOM": true
             }
         ],
+        "default-param-last": "off",
+        "@typescript-eslint/default-param-last": "warn",
         "react/jsx-filename-extension": 0,
         "no-param-reassign": 0,
         "react/prop-types": 0,
