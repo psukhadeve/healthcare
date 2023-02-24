@@ -29,10 +29,10 @@ const other: NavItemType = {
         //     breadcrumbs: false
         // },
         {
-            id: 'booked-items',
-            title: <FormattedMessage id="booked-items" />,
+            id: 'listed-products',
+            title: <FormattedMessage id="listed-products" />,
             type: 'item',
-            url: '/booked-items',
+            url: '/listed-products',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         },

@@ -32,7 +32,7 @@ export const AWS_API = {
 // like '/berry-material-react/react/default'
 export const BASE_PATH = '';
 
-export const DASHBOARD_PATH = '/booked-items';
+export const DASHBOARD_PATH = '/listed-products';
 
 export const HORIZONTAL_MAX_ITEM = 6;
 
