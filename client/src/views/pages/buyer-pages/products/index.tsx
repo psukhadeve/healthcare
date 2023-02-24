@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
+import { Avatar, Paper, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import { wrap } from 'module';
 
-const BookedItems = () => {
+const ProductsForSell = () => {
     const dispatch = useDispatch();
 
     const [List, setList] = useState([]);
@@ -61,11 +63,34 @@ const BookedItems = () => {
     return (
         <>
             <MainCard title="Listed Products">
-                <div style={{ height: 670, width: '100%' }}>
-                    <DataGrid rows={List} columns={columns} pageSize={10} rowsPerPageOptions={[5]} checkboxSelection={false} />
+                <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%', height: 'auto' }}>
+                    {List.map((values: any, index: any) => {
+                        return (
+                            <Card sx={{ maxWidth: 282, border: '1px solid #bdc3c7', margin: 1 }}>
+                                <CardMedia
+                                    sx={{ height: 200 }}
+                                    // image="https://www.bangaloreagrico.in/wp-content/uploads/2018/01/apple-plant-bangalore-agrico.jpg"
+                                    image={`${values?.base_uri}${values?.img_name[0]}`}
+                                    title="green iguana"
+                                />
+                                <CardContent sx={{ width: 282 }}>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {values?.name}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {values?.description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small">Share</Button>
+                                    <Button size="small">Buy Now</Button>
+                                </CardActions>
+                            </Card>
+                        );
+                    })}
                 </div>
             </MainCard>
         </>
     );
 };
-export default BookedItems;
+export default ProductsForSell;

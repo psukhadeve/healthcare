@@ -114,7 +114,7 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
                 setMsg('You as a seller Logged In successfully');
                 setOpen(true);
                 let timing = setInterval(() => {
-                    navigate('/booked-items');
+                    navigate('/listed-products');
                 }, 5000);
                 return () => {
                     clearInterval(timing);

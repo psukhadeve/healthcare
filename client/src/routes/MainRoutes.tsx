@@ -5,12 +5,15 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 import MainLayout from 'layout/MainLayout';
 import Loadable from 'ui-component/Loadable';
 
-// sample page routing
+// seller page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
-const ListedProducts = Loadable(lazy(() => import('views/pages/seller-pages/booked-items')));
-const ListedItems = Loadable(lazy(() => import('views/pages/seller-pages/listed-products')));
+const ListedProducts = Loadable(lazy(() => import('views/pages/seller-pages/listed-products')));
+const ListedItems = Loadable(lazy(() => import('views/pages/seller-pages/booked-items')));
 const AddProducts = Loadable(lazy(() => import('views/pages/seller-pages/add-product')));
 const ProductsRatings = Loadable(lazy(() => import('views/pages/seller-pages/products-ratings')));
+
+// buyer page routing
+const BuyProducts = Loadable(lazy(() => import('views/pages/buyer-pages/products')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -22,6 +25,7 @@ const MainRoutes = {
         </AuthGuard>
     ),
     children: [
+        // ============== || SELLER ROUTING || ===============//
         {
             path: '/',
             element: <ListedProducts />
@@ -45,6 +49,12 @@ const MainRoutes = {
         {
             path: '/add-products',
             element: <AddProducts />
+        },
+
+        // ============== || BUYER ROUTING || ===============//
+        {
+            path: '/buy-products',
+            element: <BuyProducts />
         }
     ]
 };

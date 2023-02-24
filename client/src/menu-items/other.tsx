@@ -59,6 +59,14 @@ const other: NavItemType = {
             url: '/add-products',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
+        },
+        {
+            id: 'buy-products',
+            title: <FormattedMessage id="buy-products" />,
+            type: 'item',
+            url: '/buy-products',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
         }
         // {
         //     id: 'documentation',
