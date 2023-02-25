@@ -10,6 +10,7 @@ import Loadable from 'ui-component/Loadable';
 const AuthLogin = Loadable(lazy(() => import('views/pages/authentication/Login3')));
 const AuthRegister = Loadable(lazy(() => import('views/pages/authentication/Register3')));
 const AuthForgotPassword = Loadable(lazy(() => import('views/pages/authentication/ForgotPassword3')));
+const Roles = Loadable(lazy(() => import('views/pages/roles')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -38,7 +39,14 @@ const LoginRoutes = {
         {
             path: '/forgot',
             element: <AuthForgotPassword />
+        },
+
+        {
+            path: '/roles',
+            element: <Roles />
         }
+
+        //========================|| LOGIN ROUTING  ||==========================//
     ]
 };
 

@@ -112,7 +112,7 @@ const BuyNow = () => {
     const handlePayment = () => {
         setStripe(!getStripe);
 
-        navigate('/add_to_cart/stripe-pay');
+        navigate('/stripe-pay');
     };
     useEffect(() => {
         const genRandomKey = () => {
@@ -330,7 +330,7 @@ const BuyNow = () => {
                                         sx={{ marginTop: 5, marginLeft: 5 }}
                                         variant="contained"
                                         startIcon={<StarHalfIcon />}
-                                        onClick={() => navigate('/ratings-reviews', { state: location.state.item })}
+                                        onClick={() => navigate('/ratings-reviews', { state: location.state.values })}
                                     >
                                         <b>Rate Product</b>
                                     </Button>

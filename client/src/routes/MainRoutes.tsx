@@ -15,6 +15,8 @@ const ProductsRatings = Loadable(lazy(() => import('views/pages/seller-pages/pro
 // buyer page routing
 const BuyProducts = Loadable(lazy(() => import('views/pages/buyer-pages/products')));
 const BuyNow = Loadable(lazy(() => import('views/pages/buyer-pages/buy-now')));
+const StripePay = Loadable(lazy(() => import('views/pages/buyer-pages/stripe-pay')));
+const RatingReviews = Loadable(lazy(() => import('views/pages/buyer-pages/ratings-reviews')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -60,6 +62,14 @@ const MainRoutes = {
         {
             path: '/product-sammary-page',
             element: <BuyNow />
+        },
+        {
+            path: '/stripe-pay',
+            element: <StripePay />
+        },
+        {
+            path: '/ratings-reviews',
+            element: <RatingReviews />
         }
     ]
 };
