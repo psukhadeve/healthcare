@@ -17,7 +17,7 @@ export const gmail_login_Post = async (req: any, res: any) => {
     var user = await User.find({ email: email });
 
     console.log("99", !user[0],!user,user);
-    if (!user) {
+    if (!user[0]) {
         console.log("invalid credentials");
       req.session.error = "Invalid Credentials";
       res.json({"status": "401",err:"invalid credentials"})
