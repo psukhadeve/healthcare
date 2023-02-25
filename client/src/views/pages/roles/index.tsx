@@ -70,7 +70,7 @@ const Roles: React.FC<{}> = () => {
                                     <Grid item xs={2}></Grid>
                                     <Grid item xs={3} style={{ textAlign: 'right' }}>
                                         <Link
-                                            to="/signup/1"
+                                            to="/register/1"
                                             style={{
                                                 color: '#000',
                                                 // marginRight: "100px",
@@ -82,7 +82,7 @@ const Roles: React.FC<{}> = () => {
                                     </Grid>
                                     <Grid item xs={2}></Grid>
                                     <Grid item xs={3} style={{ textAlign: 'left' }}>
-                                        <Link to="/signup/0" style={{ color: '#000', fontSize: '36px' }}>
+                                        <Link to="/register/0" style={{ color: '#000', fontSize: '36px' }}>
                                             Signup as Buyer
                                         </Link>
                                     </Grid>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -15,7 +16,10 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
+    MenuItem,
     OutlinedInput,
+    Select,
+    SelectChangeEvent,
     TextField,
     Typography,
     useMediaQuery
@@ -37,12 +41,17 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { StringColorProps } from 'types';
+import BannerMessage from 'banner-message';
 
 // ===========================|| FIREBASE - REGISTER ||=========================== //
 
 const FirebaseRegister = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
+    const { roleId } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const registerRes = useSelector((state: any) => state?.registerReducer?.register);
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const { borderRadius } = useConfig();
     const [showPassword, setShowPassword] = React.useState(false);
@@ -51,6 +60,27 @@ const FirebaseRegister = ({ ...others }) => {
     const [strength, setStrength] = React.useState(0);
     const [level, setLevel] = React.useState<StringColorProps>();
     const { firebaseRegister, firebaseGoogleSignIn } = useAuth();
+
+    // ================= ||  || ===================//
+
+    var [fname, setFname] = React.useState('');
+    var [lname, setLname] = React.useState('');
+    var [email, setEmail] = React.useState('');
+    var [password, setPassword] = React.useState('');
+
+    var [dob, setDob] = React.useState('');
+    var [phonno, setPhoneno] = React.useState('');
+    const [open, setOpen] = React.useState(false);
+
+    const [severity, setSeverity] = React.useState('');
+    const [msg, setMsg] = React.useState('');
+    const [userlanguage, setUserlanguage] = React.useState<string>('');
+
+    const handleLangChange = (event: SelectChangeEvent) => {
+        setUserlanguage(event.target.value as string);
+    };
+
+    //================== ||  || ===================//
 
     const googleHandler = async () => {
         try {
@@ -74,12 +104,90 @@ const FirebaseRegister = ({ ...others }) => {
         setLevel(strengthColor(temp));
     };
 
+    const handleDateChange = (newValue: any) => {
+        // setValue(newValue);
+        setDob(newValue);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
     useEffect(() => {
         changePassword('123456');
     }, []);
 
+    const isEmptyObject: any = (selector: any) => {
+        return JSON.stringify(selector) === '{}';
+    };
+
+    React.useEffect(() => {
+        if (isEmptyObject(registerRes)) {
+            return;
+        } else {
+            console.log('registerRes register', registerRes);
+            if (registerRes?.status === '201' && registerRes?.user?.role === 0) {
+                setSeverity('success');
+                setMsg('Your buyer account Registered successfully');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    navigate('/listed-products');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (registerRes?.status === '201' && registerRes?.user?.role === 1) {
+                setSeverity('success');
+                setMsg('Your seller account Registered successfully');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    navigate('/buy-products');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (registerRes.status === '400') {
+                // alert("wrong password");
+                console.log(registerRes);
+                setSeverity('success');
+                setMsg('You have entered wrong password');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    navigate('/login');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            } else if (registerRes.status === '309') {
+                setSeverity('info');
+                setMsg('User not registered please sign up');
+                setOpen(true);
+                let timing = setInterval(() => {
+                    //   setIsloading(!isLoading);
+                    navigate('/login');
+                }, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            }
+        }
+    }, [registerRes]);
+    let items = { fname, lname, phonno, password, dob, email, role: roleId, userlanguage };
+
+    console.log('items in register', items, typeof roleId, roleId);
+    let handleSubmit1 = async (e: any) => {
+        // e.preventDefault();
+        // setIsloading(!isLoading);
+        // saga dispatch
+        dispatch({ type: 'REGISTER_USER', payload: items });
+        console.log('items for register', items);
+    };
     return (
         <>
+            <BannerMessage open={open} onClose={handleClose} severity={severity} msg={msg} />
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12}>
                     <AnimateButton>
@@ -140,36 +248,38 @@ const FirebaseRegister = ({ ...others }) => {
                     password: '',
                     submit: null
                 }}
-                validationSchema={Yup.object().shape({
-                    email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-                    password: Yup.string().max(255).required('Password is required')
-                })}
-                onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-                    try {
-                        await firebaseRegister(values.email, values.password).then(
-                            () => {
-                                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                                // github issue: https://github.com/formium/formik/issues/2430
-                            },
-                            (err: any) => {
-                                if (scriptedRef.current) {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: err.message });
-                                    setSubmitting(false);
-                                }
-                            }
-                        );
-                    } catch (err: any) {
-                        console.error(err);
-                        if (scriptedRef.current) {
-                            setStatus({ success: false });
-                            setErrors({ submit: err.message });
-                            setSubmitting(false);
-                        }
-                    }
-                }}
+                // validationSchema={Yup.object().shape({
+                //     email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+                //     password: Yup.string().max(255).required('Password is required')
+                // })}
+                onSubmit={
+                    handleSubmit1
+                    // async (values, { setErrors, setStatus, setSubmitting }) => {
+                    // try {
+                    //     await firebaseRegister(values.email, values.password).then(
+                    //         () => {
+                    //             // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
+                    //             // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
+                    //             // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+                    //             // github issue: https://github.com/formium/formik/issues/2430
+                    //         },
+                    //         (err: any) => {
+                    //             if (scriptedRef.current) {
+                    //                 setStatus({ success: false });
+                    //                 setErrors({ submit: err.message });
+                    //                 setSubmitting(false);
+                    //             }
+                    //         }
+                    //     );
+                    // } catch (err: any) {
+                    //     console.error(err);
+                    //     if (scriptedRef.current) {
+                    //         setStatus({ success: false });
+                    //         setErrors({ submit: err.message });
+                    //         setSubmitting(false);
+                    //     }
+                    // }
+                }
             >
                 {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
                     <form noValidate onSubmit={handleSubmit} {...others}>
@@ -181,6 +291,8 @@ const FirebaseRegister = ({ ...others }) => {
                                     margin="normal"
                                     name="fname"
                                     type="text"
+                                    value={fname}
+                                    onChange={(e) => setFname(e.target.value)}
                                     defaultValue=""
                                     sx={{ ...theme.typography.customInput }}
                                 />
@@ -193,6 +305,8 @@ const FirebaseRegister = ({ ...others }) => {
                                     name="lname"
                                     type="text"
                                     defaultValue=""
+                                    value={lname}
+                                    onChange={(e) => setLname(e.target.value)}
                                     sx={{ ...theme.typography.customInput }}
                                 />
                             </Grid>
@@ -202,10 +316,11 @@ const FirebaseRegister = ({ ...others }) => {
                             <OutlinedInput
                                 id="outlined-adornment-email-register"
                                 type="email"
-                                value={values.email}
+                                value={email}
                                 name="email"
+                                onChange={(e) => setEmail(e.target.value)}
                                 onBlur={handleBlur}
-                                onChange={handleChange}
+                                // onChange={handleChange}
                                 inputProps={{}}
                             />
                             {touched.email && errors.email && (
@@ -214,7 +329,52 @@ const FirebaseRegister = ({ ...others }) => {
                                 </FormHelperText>
                             )}
                         </FormControl>
+                        {/* ================================================================================ */}
+                        <Grid item xs={12} sm={12}>
+                            <TextField
+                                fullWidth
+                                label="Phone no."
+                                margin="normal"
+                                name="phonno"
+                                value={phonno}
+                                onChange={(e) => setPhoneno(e.target.value)}
+                                type="number"
+                                defaultValue=""
+                                sx={{ ...theme.typography.customInput }}
+                            />
+                        </Grid>
+                        {/* ================================================================================== */}
 
+                        <Grid item xs={12} sm={12}>
+                            <TextField
+                                fullWidth
+                                label="Date of Birth"
+                                margin="normal"
+                                name="Date of Birth"
+                                type="date"
+                                // onChange={handleDateChange}
+                                // defaultValue="12/30/2022"
+                                sx={{ ...theme.typography.customInput }}
+                            />
+                        </Grid>
+
+                        {/* =============================================================== */}
+
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Prefer Language</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={userlanguage}
+                                label="Prefer Language"
+                                onChange={handleLangChange}
+                            >
+                                <MenuItem value={'en'}>English</MenuItem>
+                                <MenuItem value={'spa'}>Spanish</MenuItem>
+                            </Select>
+                        </FormControl>
+
+                        {/* =============================================================== */}
                         <FormControl
                             fullWidth
                             error={Boolean(touched.password && errors.password)}
@@ -224,14 +384,15 @@ const FirebaseRegister = ({ ...others }) => {
                             <OutlinedInput
                                 id="outlined-adornment-password-register"
                                 type={showPassword ? 'text' : 'password'}
-                                value={values.password}
+                                value={password}
                                 name="password"
                                 label="Password"
                                 onBlur={handleBlur}
-                                onChange={(e) => {
-                                    handleChange(e);
-                                    changePassword(e.target.value);
-                                }}
+                                // onChange={(e) => {
+                                //     handleChange(e);
+                                //     changePassword(e.target.value);
+                                // }}
+                                onChange={(e) => setPassword(e.target.value)}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -254,6 +415,7 @@ const FirebaseRegister = ({ ...others }) => {
                             )}
                         </FormControl>
 
+                        {/* ================================================================================== */}
                         {strength !== 0 && (
                             <FormControl fullWidth>
                                 <Box sx={{ mb: 2 }}>

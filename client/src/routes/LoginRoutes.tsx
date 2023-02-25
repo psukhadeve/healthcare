@@ -33,7 +33,7 @@ const LoginRoutes = {
             element: <AuthLogin />
         },
         {
-            path: '/register',
+            path: '/register/:roleId',
             element: <AuthRegister />
         },
         {

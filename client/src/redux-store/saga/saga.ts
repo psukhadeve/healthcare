@@ -12,7 +12,7 @@ export interface ResponseGenerator {
 }
 //unify technologies
 function* fetchAuthDetails(action: any) {
-    alert('Auth Details');
+    // alert('Auth Details');
     try {
         console.log(action.payload);
 
