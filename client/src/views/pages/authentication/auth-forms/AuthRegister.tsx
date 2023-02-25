@@ -129,6 +129,7 @@ const FirebaseRegister = ({ ...others }) => {
             return;
         } else {
             console.log('registerRes register', registerRes);
+            localStorage.setItem('role_id', registerRes?.user?.role);
             if (registerRes?.status === '201' && registerRes?.user?.role === 0) {
                 setSeverity('success');
                 setMsg('Your buyer account Registered successfully');

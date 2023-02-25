@@ -21,8 +21,8 @@ const StripePay = Loadable(lazy(() => import('views/pages/buyer-pages/stripe-pay
 const RatingReviews = Loadable(lazy(() => import('views/pages/buyer-pages/ratings-reviews')));
 
 // ==============================|| MAIN ROUTING ||============================== //
-const role = localStorage.getItem('role_id');
-const MainRoutes = {
+
+const BuyerRoutes = {
     path: '/',
     element: (
         <AuthGuard>
@@ -33,30 +33,30 @@ const MainRoutes = {
     children: [
         // ============== || SELLER ROUTING || ===============//
 
-        {
-            path: '/',
-            element: <ListedProducts />
-        },
-        {
-            path: '/sample-page',
-            element: <SamplePage />
-        },
-        {
-            path: '/listed-products',
-            element: <ListedProducts />
-        },
-        {
-            path: '/listed-products',
-            element: <ListedItems />
-        },
-        {
-            path: '/product-ratings',
-            element: <ProductsRatings />
-        },
-        {
-            path: '/add-products',
-            element: <AddProducts />
-        },
+        // {
+        //     path: '/',
+        //     element: <ListedProducts />
+        // },
+        // {
+        //     path: '/sample-page',
+        //     element: <SamplePage />
+        // },
+        // {
+        //     path: '/listed-products',
+        //     element: <ListedProducts />
+        // },
+        // {
+        //     path: '/listed-products',
+        //     element: <ListedItems />
+        // },
+        // {
+        //     path: '/product-ratings',
+        //     element: <ProductsRatings />
+        // },
+        // {
+        //     path: '/add-products',
+        //     element: <AddProducts />
+        // },
 
         // ============== || BUYER ROUTING || ===============//
         {
@@ -78,4 +78,4 @@ const MainRoutes = {
     ]
 };
 
-export default MainRoutes;
+export default BuyerRoutes;
