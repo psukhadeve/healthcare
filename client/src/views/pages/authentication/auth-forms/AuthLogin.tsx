@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useReducer } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -36,6 +36,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import Google from 'assets/images/icons/google.svg';
+import accountReducer from 'store/accountReducer';
+import { initialState } from 'contexts/FirebaseContext';
+import { LOGIN } from 'store/actions';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
@@ -63,6 +66,8 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
     const handleMouseDownPassword = (event: React.SyntheticEvent) => {
         event.preventDefault();
     };
+let navigate=useNavigate()
+const [state, dispatch] = useReducer(accountReducer, initialState);
 
     return (
         <>
@@ -140,21 +145,56 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
                 })}
                 onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
                     try {
-                        await firebaseEmailPasswordSignIn(values.email, values.password).then(
-                            () => {
-                                // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
-                                // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
-                                // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
-                                // github issue: https://github.com/formium/formik/issues/2430
-                            },
-                            (err: any) => {
-                                if (scriptedRef.current) {
-                                    setStatus({ success: false });
-                                    setErrors({ submit: err.message });
-                                    setSubmitting(false);
+                        var myHeaders = new Headers();
+                        
+                        
+                        var formdata = new FormData();
+                        formdata.append("email", "u@gmail.com");
+                        formdata.append("password", "1234");
+                        
+                        var requestOptions = {
+                          method: 'POST',
+                          headers: myHeaders,
+                          body: formdata,
+                         
+                        };
+                        
+                       let d= fetch("http://localhost:8001/api/gmail/login1", requestOptions)
+                      let k= await (await d).json()
+                        //   .then(response =>{console.log("1111",response.json())} )
+                        //   .then(result =>{ console.log("===",result); return result} )
+                          .catch(error => console.log('error', error));
+                          
+                          console.log("k",k)
+                          if(k.status=="201"){
+                            dispatch({
+                                type: LOGIN,
+                                payload: {
+                                    isLoggedIn: true,
+                                    user: {
+                                        id: '11',
+                                        email:'jjj',
+                                        name: 'John Doe'
+                                    }
                                 }
-                            }
-                        );
+                            });
+                            navigate('/sample-page');
+                          }
+                        // await firebaseEmailPasswordSignIn(values.email, values.password).then(
+                        //     () => {
+                        //         // WARNING: do not set any formik state here as formik might be already destroyed here. You may get following error by doing so.
+                        //         // Warning: Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application.
+                        //         // To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
+                        //         // github issue: https://github.com/formium/formik/issues/2430
+                        //     },
+                        //     (err: any) => {
+                        //         if (scriptedRef.current) {
+                        //             setStatus({ success: false });
+                        //             setErrors({ submit: err.message });
+                        //             setSubmitting(false);
+                        //         }
+                        //     }
+                        // );
                     } catch (err: any) {
                         console.error(err);
                         if (scriptedRef.current) {

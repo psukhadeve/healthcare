@@ -19,7 +19,7 @@ if (!firebase.apps.length) {
 }
 
 // const
-const initialState: InitialLoginContextProps = {
+export const initialState: InitialLoginContextProps = {
     isLoggedIn: false,
     isInitialized: false,
     user: null

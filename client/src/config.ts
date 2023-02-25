@@ -34,6 +34,7 @@ export const BASE_PATH = '';
 
 export const DASHBOARD_PATH = '/sample-page';
 
+
 export const HORIZONTAL_MAX_ITEM = 6;
 
 const config: ConfigProps = {
