@@ -134,7 +134,7 @@ const FirebaseRegister = ({ ...others }) => {
                 setMsg('Your buyer account Registered successfully');
                 setOpen(true);
                 let timing = setInterval(() => {
-                    navigate('/listed-products');
+                    navigate('/buy-products');
                 }, 5000);
                 return () => {
                     clearInterval(timing);
@@ -144,7 +144,7 @@ const FirebaseRegister = ({ ...others }) => {
                 setMsg('Your seller account Registered successfully');
                 setOpen(true);
                 let timing = setInterval(() => {
-                    navigate('/buy-products');
+                    navigate('/listed-products');
                 }, 5000);
                 return () => {
                     clearInterval(timing);

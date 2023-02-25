@@ -2421,3 +2421,7 @@
 20230226	01:31:29	062c32ab-0167-43c5-b900-c9cd62257738	GET	undefined	/images/06a50ba4-54ee-4642-97c0-4803ef2fc356.png
 20230226	01:31:29	449e9f4a-4fd2-4f5d-a1c6-b1f2e07be410	GET	undefined	/images/06a50ba4-54ee-4642-97c0-4803ef2fc356.png
 20230226	01:31:29	28072ef0-c760-4cbd-a5a5-2c151d8ca202	GET	undefined	/images/eefc0b6c-1d7a-4535-aab6-d313668420c2.png
+20230226	01:33:44	f7f11628-a5a9-4d94-a9e7-37dd18af49c1	POST	http://localhost:3000	/api/gmail/register
+20230226	01:33:44	201618e8-7f4c-4129-95db-638d88bbc28d	POST	http://localhost:3000	/api/gmail/register
+20230226	01:33:49	dbef8169-8f06-4b4b-98c9-ab44f399fb73	GET	http://localhost:3000	/api/upload-products
+20230226	01:33:49	eb803da2-8f8e-4383-bf45-5b27fa300d3a	GET	http://localhost:3000	/api/upload-products
