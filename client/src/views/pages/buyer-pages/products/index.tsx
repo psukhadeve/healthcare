@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
 import { Avatar, Paper, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-import { wrap } from 'module';
 
 const ProductsForSell = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [List, setList] = useState([]);
 
@@ -27,39 +28,6 @@ const ProductsForSell = () => {
         }
     }, [all_Listed_Items]);
 
-    const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 180 },
-        { field: 'type', headerName: 'Type', width: 120 },
-        { field: 'from_date', headerName: 'From Date', width: 180 },
-        {
-            field: 'to_date',
-            headerName: 'To Date',
-            type: 'number',
-            width: 180
-        },
-        {
-            field: 'image_name',
-            headerName: 'Image',
-            description: 'This column has a value getter and is not sortable.',
-            sortable: false,
-            width: 180,
-            valueGetter: (params: GridValueGetterParams) => `${params.row.name || ''}`
-        }
-    ];
-    // const rows: any = [];
-
-    const rows = [
-        { id: 1, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 2, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 3, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 4, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 5, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' }
-    ];
-
     return (
         <>
             <MainCard title="Listed Products">
@@ -67,12 +35,7 @@ const ProductsForSell = () => {
                     {List.map((values: any, index: any) => {
                         return (
                             <Card sx={{ maxWidth: 282, border: '1px solid #bdc3c7', margin: 1 }}>
-                                <CardMedia
-                                    sx={{ height: 200 }}
-                                    // image="https://www.bangaloreagrico.in/wp-content/uploads/2018/01/apple-plant-bangalore-agrico.jpg"
-                                    image={`${values?.base_uri}${values?.img_name[0]}`}
-                                    title="green iguana"
-                                />
+                                <CardMedia sx={{ height: 200 }} image={`${values?.base_uri}${values?.img_name[0]}`} title="green iguana" />
                                 <CardContent sx={{ width: 282 }}>
                                     <Typography gutterBottom variant="h5" component="div">
                                         {values?.name}
@@ -83,7 +46,9 @@ const ProductsForSell = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small">Share</Button>
-                                    <Button size="small">Buy Now</Button>
+                                    <Button size="small" onClick={() => navigate('/product-sammary-page', { state: { values } })}>
+                                        Buy Now
+                                    </Button>
                                 </CardActions>
                             </Card>
                         );
