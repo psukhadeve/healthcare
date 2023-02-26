@@ -11,6 +11,7 @@ const AuthLogin = Loadable(lazy(() => import('views/pages/authentication/Login3'
 const AuthRegister = Loadable(lazy(() => import('views/pages/authentication/Register3')));
 const AuthForgotPassword = Loadable(lazy(() => import('views/pages/authentication/ForgotPassword3')));
 const Roles = Loadable(lazy(() => import('views/pages/roles')));
+const MoreInfo = Loadable(lazy(() => import('views/pages/more-info')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -44,6 +45,10 @@ const LoginRoutes = {
         {
             path: '/roles',
             element: <Roles />
+        },
+        {
+            path: '/google/moreinfo/:id',
+            element: <MoreInfo />
         }
 
         //========================|| LOGIN ROUTING  ||==========================//

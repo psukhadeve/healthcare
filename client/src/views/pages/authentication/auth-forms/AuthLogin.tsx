@@ -56,13 +56,21 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
     const [msg, setMsg] = React.useState('');
 
     const { firebaseEmailPasswordSignIn, firebaseGoogleSignIn } = useAuth();
-    const googleHandler = async () => {
+    const google = async () => {
         // try {
         //     await window.open('http://localhost:8001/api/google', '_self');
         // } catch (err) {
         //     console.error(err);
         // }
         window.open('http://localhost:8001/api/google', '_self');
+    };
+
+    const apple = () => {
+        window.open('http://localhost:8001/auth/github', '_self');
+    };
+
+    const facebook = () => {
+        window.open('http://localhost:8001/api/facebook', '_self');
     };
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -156,12 +164,13 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
         <>
             <BannerMessage open={open} onClose={handleClose} severity={severity} msg={msg} />
             <Grid container direction="column" justifyContent="center" spacing={2}>
+                {/* ================ || Login With Google ||=============== */}
                 <Grid item xs={12}>
                     <AnimateButton>
                         <Button
                             disableElevation
                             fullWidth
-                            onClick={googleHandler}
+                            onClick={google}
                             size="large"
                             variant="outlined"
                             sx={{
@@ -177,6 +186,65 @@ const FirebaseLogin = ({ loginProp, ...others }: { loginProp?: number }) => {
                         </Button>
                     </AnimateButton>
                 </Grid>
+                {/* ======================= || Facebook Login || ==================== */}
+
+                <Grid item xs={12}>
+                    <AnimateButton>
+                        <Button
+                            disableElevation
+                            fullWidth
+                            onClick={facebook}
+                            size="large"
+                            variant="outlined"
+                            sx={{
+                                color: 'grey.700',
+                                backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.grey[50],
+                                borderColor: theme.palette.mode === 'dark' ? theme.palette.dark.light + 20 : theme.palette.grey[100]
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', mr: { xs: 1, sm: 2, width: 20 } }}>
+                                <img
+                                    src="https://d19rpgkrjeba2z.cloudfront.net/static/gen/1b50753b8452580def5c.svg"
+                                    alt="google"
+                                    width={16}
+                                    height={16}
+                                    style={{ marginRight: matchDownSM ? 8 : 16 }}
+                                />
+                            </Box>
+                            Sign in with Facebook
+                        </Button>
+                    </AnimateButton>
+                </Grid>
+                {/* ======================= || Apple Login || =======================*/}
+                <Grid item xs={12}>
+                    <AnimateButton>
+                        <Button
+                            disableElevation
+                            fullWidth
+                            onClick={apple}
+                            size="large"
+                            variant="outlined"
+                            sx={{
+                                color: 'grey.700',
+                                backgroundColor: theme.palette.mode === 'dark' ? theme.palette.dark.main : theme.palette.grey[50],
+                                borderColor: theme.palette.mode === 'dark' ? theme.palette.dark.light + 20 : theme.palette.grey[100]
+                            }}
+                        >
+                            <Box sx={{ display: 'flex', mr: { xs: 1, sm: 2, width: 20 } }}>
+                                <img
+                                    src="https://d19rpgkrjeba2z.cloudfront.net/static/gen/ac8579fdc87804afe253.svg"
+                                    alt="google"
+                                    width={16}
+                                    height={16}
+                                    style={{ marginRight: matchDownSM ? 8 : 16 }}
+                                />
+                            </Box>
+                            Sign in with Apple
+                        </Button>
+                    </AnimateButton>
+                </Grid>
+
+                {/* ========================= || || ===================================*/}
                 <Grid item xs={12}>
                     <Box
                         sx={{
