@@ -44,14 +44,14 @@ const other: NavItemType = {
         //     icon: icons.IconBrandChrome,
         //     breadcrumbs: false
         // },
-        {
-            id: 'product-ratings',
-            title: <FormattedMessage id="product-ratings" />,
-            type: 'item',
-            url: '/product-ratings',
-            icon: icons.IconBrandChrome,
-            breadcrumbs: false
-        },
+        // {
+        //     id: 'product-ratings',
+        //     title: <FormattedMessage id="product-ratings" />,
+        //     type: 'item',
+        //     url: '/product-ratings',
+        //     icon: icons.IconBrandChrome,
+        //     breadcrumbs: false
+        // },
         {
             id: 'add-products',
             title: <FormattedMessage id="add-products" />,

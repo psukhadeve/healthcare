@@ -23,7 +23,7 @@
             }
         ],
         "default-param-last": "off",
-        "no-shadowed-variable": true,
+        "no-shadowed-variable":0,
         "@typescript-eslint/default-param-last": "warn",
         "react/jsx-filename-extension": 0,
         "no-param-reassign": 0,
