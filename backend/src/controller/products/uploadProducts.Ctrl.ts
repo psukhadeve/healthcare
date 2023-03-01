@@ -22,6 +22,7 @@ const products_uploads = (req: any, res: any) => {
   var from_date = req.body.from_date;
   var to_date = req.body.to_date;
   var base_uri = 'http://localhost:8001/images/';
+  let price=req.body.price
   var img_name
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
@@ -40,7 +41,7 @@ const products_uploads = (req: any, res: any) => {
     });
     img_name = imgName;
     var isproductSaved=saveProductDetailsService(seller_id, name, type, category, discription,
-      from_date, to_date, base_uri, img_name
+      from_date, to_date, base_uri, img_name,price
     )
     console.log('isproductSaved',isproductSaved)
     if(isproductSaved){
@@ -65,7 +66,7 @@ const products_uploads = (req: any, res: any) => {
     })
     img_name = allimagesNames;
     var isproductSaved=saveProductDetailsService(seller_id, name, type, category, discription,
-      from_date, to_date, base_uri, img_name
+      from_date, to_date, base_uri, img_name,price
     )
     if(isproductSaved){
       res.sendStatus(200)
@@ -81,7 +82,7 @@ const products_uploads = (req: any, res: any) => {
 }
 const saveProductDetailsService = (
   seller_id: any, name: any, type: any, category: any, discription: any,
-  from_date: any, to_date: any, base_uri: any, img_name: any
+  from_date: any, to_date: any, base_uri: any, img_name: any,price:any
 ) => {
   try {
     var moviedata = new SellerUploadProducts(
@@ -95,6 +96,7 @@ const saveProductDetailsService = (
         to_date: to_date,
         base_uri: 'http://localhost:8001/images/',
         img_name: img_name,
+        price:price
       })
     moviedata.save()
     return true
