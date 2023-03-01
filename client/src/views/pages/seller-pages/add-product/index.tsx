@@ -36,6 +36,7 @@ const AddProducts = () => {
 
     const loginRes = useSelector((state: any) => state?.authReducer?.login);
     const [itemDetails, setItemDetails] = React.useState('');
+    const [productPrice, setProductPrice] = React.useState('');
 
     const [ItemType, setItemType] = React.useState('');
 
@@ -124,6 +125,20 @@ const AddProducts = () => {
                                     onChange={(e) => setItemDetails(e.target.value)}
                                 />
                             </Grid>
+                            {/* ==========||add price ||============ */}
+
+                            <Grid item xs={12}>
+                                <TextField
+                                    sx={{ m: 1, width: '45ch' }}
+                                    className="text_field"
+                                    id="outlined-basic"
+                                    label="Product Price"
+                                    variant="outlined"
+                                    type="number"
+                                    onChange={(e) => setProductPrice(e.target.value)}
+                                />
+                            </Grid>
+                            {/*=====================================*/}
                             <Grid item xs={12}>
                                 <FormControl sx={{ m: 1, minWidth: 355 }} size="small">
                                     <InputLabel id="demo-select-small">Product Type</InputLabel>
