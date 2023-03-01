@@ -124,7 +124,7 @@ const BuyNow = () => {
 
         genRandomKey();
     }, []);
-    console.log('location>>>', location);
+    console.log('location>>>ss', location);
     return (
         <>
             <MainCard title="Product Summary Page">
@@ -331,6 +331,7 @@ const BuyNow = () => {
                                         variant="contained"
                                         startIcon={<StarHalfIcon />}
                                         onClick={() => navigate('/ratings-reviews', { state: location.state.values })}
+                                        // onClick={() => console.log('data for ratings Hi', location.state.values)}
                                     >
                                         <b>Rate Product</b>
                                     </Button>

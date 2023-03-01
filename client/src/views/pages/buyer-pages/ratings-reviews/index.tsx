@@ -31,16 +31,21 @@ const RatingsReviewa = () => {
     const user_id = useSelector((state: any) => state?.authReducer?.login?.user[0]?._id);
     const user_name = useSelector((state: any) => state?.authReducer?.login?.user[0]?.fname);
 
+    console.log('user_id', user_id, 'user_name', user_name);
+
     const [value, setValue] = React.useState<number | null>(2);
     const [itemReview, setItemReview] = React.useState<string>('');
+    const [CountItemReview, setCountItemReview] = React.useState(0);
+
     const [hover, setHover] = React.useState(-1);
     const [open, setOpen] = React.useState(false);
     const [severity, setSeverity] = React.useState('');
     const [msg, setMsg] = React.useState('');
+    // const [msgCountChar, setMsgCountChar] = React.useState('');
 
-    var item = location.state;
+    var values = location.state;
 
-    console.log('item ratings', item);
+    console.log('item ratings', values);
 
     const handleSubmit = () => {
         var myHeaders = new Headers();
@@ -70,7 +75,7 @@ const RatingsReviewa = () => {
                     setMsg('Rating & review submitted successfully');
                     setOpen(true);
                     let timing = setInterval(() => {
-                        navigate('/product-sammary-page', { state: { item } });
+                        navigate('/product-sammary-page', { state: { values } });
                     }, 5000);
                     return () => {
                         clearInterval(timing);
@@ -87,7 +92,23 @@ const RatingsReviewa = () => {
 
         setOpen(false);
     };
-
+    const handleItemReview = (e: any) => {
+        let val = e.target.value;
+        setItemReview(val);
+        if (val.length !== undefined) {
+            let len = val.length;
+            if (len >= 12) {
+                setSeverity('warning');
+                setMsg('You reached max allowed character is 12');
+                setOpen(true);
+                let timing = setInterval(() => {}, 5000);
+                return () => {
+                    clearInterval(timing);
+                };
+            }
+        }
+        setCountItemReview(e.target.value.length);
+    };
     return (
         <>
             <MainCard title="Ratings & Reviews">
@@ -146,8 +167,8 @@ const RatingsReviewa = () => {
                                     label="Review"
                                     multiline
                                     rows={4}
-                                    onChange={(event) => setItemReview(event.target.value)}
-                                    //   defaultValue="Default Value"
+                                    inputProps={{ maxLength: 12 }}
+                                    onChange={(e) => handleItemReview(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
