@@ -67,6 +67,7 @@ const AddProducts = () => {
         });
         // form.append("img_url", itemPicture.preview);
         form.append('name', itemDetails);
+        form.append('price', productPrice);
         form.append('seller_id', user_id);
         form.append('type', ItemType);
         form.append('from_date', from_date);

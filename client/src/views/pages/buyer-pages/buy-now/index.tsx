@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Box, Avatar, AppBar, Toolbar, Button, Paper, Stack, Typography, Rating, Divider, Modal } from '@mui/material';
+import { Grid, Box, Avatar, AppBar, Toolbar, Button, Paper, Stack, Typography, Rating, Divider, Modal, Alert } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -47,6 +47,7 @@ const BuyNow = () => {
     const [getReviews, setReviews] = useState([]);
 
     const [timeDifference, setTimeDifference] = React.useState(0);
+    const [price, setPrice] = React.useState(Number(location.state.values.price));
 
     const [dateStartValue, setDateStartvalue] = React.useState('2023-01-01');
     const [dateStartMS, setDateStartMS] = React.useState(0);
@@ -57,8 +58,10 @@ const BuyNow = () => {
     const [dateEndMS, setDateEndMS] = React.useState(0);
     const [timeEndValue, setTimeEndvalue] = React.useState('00:00');
     const [timeEndMS, setTimeEndMS] = React.useState(0);
+    const [cancellationDate, setCancellationDate] = React.useState('');
     const [freeMSG, setFreeMSG] = React.useState('');
     const [paidMSG, setPaidMSG] = React.useState('');
+    const [paidPRICE, setPaidPRICE] = React.useState(0);
     const [getStripe, setStripe] = useState<boolean>(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -92,21 +95,32 @@ const BuyNow = () => {
         setTimeEndvalue(event.target.value);
         setTimeEndMS(result);
     };
-
-    const handleContinue = () => {
-        setOpen(true);
+    useEffect(() => {
         let prevTime = dateStartMS + timeStartMS;
         let afterTime = dateEndMS + timeEndMS;
         let timeDiff = afterTime - prevTime;
+        let totaldays = timeDiff / 86400000;
 
-        if (timeDiff <= 86400000) {
-            setFreeMSG('You are eligible for free cancellation within 24 hrs');
-        } else {
-            let totaldays = (timeDiff - 86400000) / 86400000;
+        let totalCharged = price * totaldays;
 
-            let totalCharged = 180 * totaldays;
-            setPaidMSG(`You will have to pay charged $ ${totalCharged}`);
+        //=================|| Free Cancellation ||==================//
+        // var dateStr = '2019-01-01';
+        var adddays = 1;
+
+        var result = new Date(new Date(dateStartValue).setDate(new Date(dateStartValue).getDate() + adddays));
+        var trimmed_date = result.toISOString().substr(0, 10);
+        setCancellationDate(trimmed_date);
+        console.log('trimmed_date>>>>', trimmed_date);
+        //=========================================================//
+
+        if (totalCharged !== 0) {
+            setPaidPRICE(totalCharged);
+            setPaidMSG(`You will have to pay charged  `);
+            return;
         }
+    }, [dateStartMS, dateEndMS, timeStartMS, timeEndMS]);
+    const handleContinue = () => {
+        setOpen(true);
     };
 
     const handlePayment = () => {
@@ -148,9 +162,6 @@ const BuyNow = () => {
                                                 <h6 style={{ textAlign: 'center' }}>{fadeImage.caption}</h6>
                                             </div>
                                         ))}
-                                        {/* {
-                    location.state.item.img_name.map
-                  } */}
                                     </Fade>
                                 </div>
                             </Grid>
@@ -194,7 +205,7 @@ const BuyNow = () => {
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12}>
-                                $180.00 x 1 day
+                                ${price} x 1 day
                             </Grid>
                             <Grid item xs={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
@@ -247,6 +258,27 @@ const BuyNow = () => {
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12}>
+                                {paidPRICE !== 0 && paidPRICE > 0 ? (
+                                    <Alert severity="success">
+                                        <strong>
+                                            {paidMSG}${paidPRICE}
+                                            <br />
+                                            Free Cancellation till {cancellationDate}
+                                        </strong>
+                                    </Alert>
+                                ) : (
+                                    <></>
+                                )}
+                            </Grid>
+
+                            {paidPRICE !== 0 && paidPRICE > 0 ? (
+                                <Grid item xs={12}>
+                                    <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
+                                </Grid>
+                            ) : (
+                                <></>
+                            )}
+                            <Grid item xs={12}>
                                 Pickup & Return Location
                             </Grid>
                             <Grid item xs={12}>
@@ -292,6 +324,7 @@ const BuyNow = () => {
                                             </Typography>
                                             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                                                 {freeMSG}
+
                                                 {paidMSG}
                                             </Typography>
                                             <Grid container item spacing={2}>
