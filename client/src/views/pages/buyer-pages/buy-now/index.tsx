@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/material';
 import { Grid, Box, Avatar, AppBar, Toolbar, Button, Paper, Stack, Typography, Rating, Divider, Modal, Alert } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -41,6 +43,8 @@ const style = {
 const BuyNow = () => {
     const location = useLocation();
     const navigate = useNavigate();
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const [pickUpReturn, setpickUpReturn] = useState('');
     const [value, setValue] = React.useState<number | null>(4);
     const [open, setOpen] = React.useState(false);
@@ -144,7 +148,7 @@ const BuyNow = () => {
             <MainCard title="Product Summary Page">
                 <Box sx={{ flexGrow: 1 }}>
                     <Grid container spacing={2}>
-                        <Grid item xs={7}>
+                        <Grid item xs={12} lg={7}>
                             <Grid item xs={12}>
                                 <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>{location.state.values.name}</h3>
                                 <div className="slide-container">
@@ -197,24 +201,24 @@ const BuyNow = () => {
                             </Grid>
                         </Grid>
 
-                        <Grid item xs={0.3}>
+                        <Grid item xs={0.3} md={0.3}>
                             <Divider variant="fullWidth" className="custom_divider" orientation="vertical" />
                         </Grid>
-                        <Grid item xs={4.7}>
+                        <Grid item xs={12} md={4.7} lg={4.7}>
                             <Grid item xs={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12}>
                                 ${price} x 1 day
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 Start Date
                             </Grid>
                             <Grid container spacing={2} sx={{ marginTop: 2 }}>
-                                <Grid item xs={6}>
+                                <Grid item xs={6} md={6}>
                                     <input
                                         type="date"
                                         placeholder="yyyy-mm-dd"
@@ -225,10 +229,10 @@ const BuyNow = () => {
                                         max="2030-12-31"
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={4} md={4}>
                                     <input type="time" value={timeStartValue} id="outlined-basic" onChange={handleStartTimeChange} />
                                 </Grid>
-                                <Grid item xs={2}></Grid>
+                                <Grid item xs={2} md={4}></Grid>
                             </Grid>
 
                             <Grid item xs={12}>
@@ -257,7 +261,7 @@ const BuyNow = () => {
                             <Grid item xs={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} lg={12}>
                                 {paidPRICE !== 0 && paidPRICE > 0 ? (
                                     <Alert severity="success">
                                         <strong>
@@ -278,7 +282,7 @@ const BuyNow = () => {
                             ) : (
                                 <></>
                             )}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} md={12}>
                                 Pickup & Return Location
                             </Grid>
                             <Grid item xs={12}>

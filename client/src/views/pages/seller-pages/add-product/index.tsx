@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
@@ -30,6 +32,8 @@ export interface Iselector {
 const AddProducts = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const res_user = localStorage.getItem('loginRes') || '{}';
 
     const user_id: any = JSON.parse(res_user).user[0]._id;
@@ -63,7 +67,7 @@ const AddProducts = () => {
         let form = new FormData();
 
         getFiles.map((item, index) => {
-            form.append('img_url', item);
+            return form.append('img_url', item);
         });
         // form.append("img_url", itemPicture.preview);
         form.append('name', itemDetails);
@@ -113,10 +117,10 @@ const AddProducts = () => {
                 >
                     <Paper>
                         <Grid container spacing={2}>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 20 }}>
                                 <div className="heading">Add Product</div>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <TextField
                                     sx={{ m: 1, width: '45ch' }}
                                     className="text_field"
@@ -128,7 +132,7 @@ const AddProducts = () => {
                             </Grid>
                             {/* ==========||add price ||============ */}
 
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <TextField
                                     sx={{ m: 1, width: '45ch' }}
                                     className="text_field"
@@ -140,7 +144,7 @@ const AddProducts = () => {
                                 />
                             </Grid>
                             {/*=====================================*/}
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <FormControl sx={{ m: 1, minWidth: 355 }} size="small">
                                     <InputLabel id="demo-select-small">Product Type</InputLabel>
                                     <Select
@@ -159,7 +163,7 @@ const AddProducts = () => {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <div style={{ marginTop: 10 }}>
                                     <div className="date">From Date</div>
                                     <TextField
@@ -173,7 +177,7 @@ const AddProducts = () => {
                                     />
                                 </div>
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <div style={{ marginTop: 20 }}>
                                     <div className="date">To Date</div>
                                     <TextField
@@ -213,7 +217,12 @@ const AddProducts = () => {
                                     />
                                 </div>
                             </Grid>
-                            <Grid item xs={12} sx={{ marginTop: 1 }}>
+                            <Grid
+                                item
+                                xs={12}
+                                sx={{ marginTop: 1 }}
+                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            >
                                 <TextField
                                     id="outlined-multiline-static"
                                     label="describe your product..."
@@ -225,12 +234,18 @@ const AddProducts = () => {
                                     sx={{ minWidth: 375 }}
                                 />
                             </Grid>
-                            <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Grid
+                                className="btm-middle"
+                                item
+                                xs={12}
+                                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            >
                                 <Button
                                     variant="contained"
                                     onClick={handleSubmit}
                                     size="large"
                                     fullWidth={true}
+                                    sx={{ width: 375 }}
                                     // startIcon={<CloudIcon/>}
                                     startIcon={<CloudIcon />}
                                 >
