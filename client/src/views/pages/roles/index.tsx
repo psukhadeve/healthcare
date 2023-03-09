@@ -10,9 +10,11 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle
+    DialogTitle,
+    useTheme
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './roles.css';
 import Slide from '@mui/material/Slide';
@@ -28,6 +30,8 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const Roles: React.FC<{}> = () => {
+    const theme = useTheme();
+    const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -65,10 +69,10 @@ const Roles: React.FC<{}> = () => {
                 >
                     <DialogContent>
                         <DialogContentText id="alert-dialog-slide-description">
-                            <div style={{ marginTop: '18%' }}>
+                            <div style={{ marginTop: matchDownSM ? '70%' : '18%' }}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={2}></Grid>
-                                    <Grid item xs={3} style={{ textAlign: 'right' }}>
+                                    {/* <Grid item xs={12} lg={2}></Grid> */}
+                                    <Grid item xs={12} lg={6} style={{ textAlign: 'center' }}>
                                         <Link
                                             to="/register/1"
                                             style={{
@@ -80,8 +84,8 @@ const Roles: React.FC<{}> = () => {
                                             Signup as Seller
                                         </Link>
                                     </Grid>
-                                    <Grid item xs={2}></Grid>
-                                    <Grid item xs={3} style={{ textAlign: 'left' }}>
+                                    {/* <Grid item xs={12} lg={2}></Grid> */}
+                                    <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: matchDownSM ? '15%' : 0 }}>
                                         <Link to="/register/0" style={{ color: '#000', fontSize: '36px' }}>
                                             Signup as Buyer
                                         </Link>
