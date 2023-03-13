@@ -47,10 +47,10 @@ const Roles: React.FC<{}> = () => {
             {/* ======================================================= */}
 
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
+                <AppBar position="static" sx={{ background: '#673ab7' }}>
                     <Toolbar variant="dense">
                         <MenuItem onClick={handleClickOpen}>
-                            <span style={{ color: 'rgb(0, 97, 66)', fontWeight: 600 }}> Sign Up</span>
+                            <span style={{ color: '#fff', fontWeight: 600 }}> Sign Up</span>
                         </MenuItem>
                     </Toolbar>
                 </AppBar>
@@ -76,7 +76,7 @@ const Roles: React.FC<{}> = () => {
                                         <Link
                                             to="/register/1"
                                             style={{
-                                                color: '#000',
+                                                color: '#673ab7',
                                                 // marginRight: "100px",
                                                 fontSize: '36px'
                                             }}
@@ -86,7 +86,7 @@ const Roles: React.FC<{}> = () => {
                                     </Grid>
                                     {/* <Grid item xs={12} lg={2}></Grid> */}
                                     <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: matchDownSM ? '15%' : 0 }}>
-                                        <Link to="/register/0" style={{ color: '#000', fontSize: '36px' }}>
+                                        <Link to="/register/0" style={{ color: '#673ab7', fontSize: '36px' }}>
                                             Signup as Buyer
                                         </Link>
                                     </Grid>
@@ -97,7 +97,7 @@ const Roles: React.FC<{}> = () => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>
-                            <span style={{ color: 'rgb(0, 97, 66)', fontWeight: 600 }}>Close</span>
+                            <span style={{ color: '#000', fontWeight: 600 }}>Close</span>
                         </Button>
                     </DialogActions>
                 </Dialog>

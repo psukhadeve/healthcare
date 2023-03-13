@@ -26,6 +26,7 @@ import { Fade } from 'react-slideshow-image';
 
 import 'react-slideshow-image/dist/styles.css';
 import MainCard from 'ui-component/cards/MainCard';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -150,7 +151,9 @@ const BuyNow = () => {
                     <Grid container spacing={2}>
                         <Grid item xs={12} lg={7}>
                             <Grid item xs={12}>
-                                <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>{location.state.values.name}</h3>
+                                <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>
+                                    <strong style={{ color: '#673ab7' }}>{location.state.values.name}</strong>
+                                </h3>
                                 <div className="slide-container">
                                     <Fade>
                                         {location.state.values.img_name.map((fadeImage: any, index: any) => (
@@ -170,11 +173,12 @@ const BuyNow = () => {
                                 </div>
                             </Grid>
                             <Grid item xs={12} sx={{ marginTop: '20px', marginLeft: '10px' }}>
-                                <b>Discription:</b> {location.state.values.discription}
+                                <strong style={{ color: '#673ab7' }}>Discription:</strong>{' '}
+                                <strong>{location.state.values.discription}</strong>
                             </Grid>
                             <Grid sx={{ marginTop: '20px', marginLeft: '10px' }}>
                                 <Grid item xs={12} sx={{ marginBottom: '20px' }}>
-                                    <b>Ratings & Reviews:</b>
+                                    <strong style={{ color: '#673ab7' }}>Ratings & Reviews:</strong>
                                 </Grid>
 
                                 {/* =====================Rating API================ */}
@@ -183,15 +187,15 @@ const BuyNow = () => {
                                     return (
                                         <>
                                             <Grid container spacing={2}>
-                                                <Grid item xs={1}>
+                                                <Grid item xs={2} md={1}>
                                                     <Avatar src="https://ichef.bbci.co.uk/news/976/cpsprodpb/AF4A/production/_126247844_jackwoodley.jpg" />
                                                 </Grid>
-                                                <Grid item xs={11}>
-                                                    <Grid item xs={12}>
+                                                <Grid item xs={10} md={11}>
+                                                    <Grid item xs={12} md={12}>
                                                         <Rating name="half-rating-read" value={item.ratings} precision={0.5} readOnly />
                                                     </Grid>
-                                                    <Grid item xs={12}>
-                                                        {item.review}
+                                                    <Grid item xs={12} md={12}>
+                                                        <strong>{item.review}</strong>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -209,13 +213,13 @@ const BuyNow = () => {
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12}>
-                                ${price} x 1 day
+                                <strong>${price} x 1 day</strong>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12} md={12}>
-                                Start Date
+                                <strong style={{ color: '#673ab7' }}>Start Date</strong>
                             </Grid>
                             <Grid container spacing={2} sx={{ marginTop: 2 }}>
                                 <Grid item xs={6} md={6}>
@@ -239,7 +243,7 @@ const BuyNow = () => {
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
                             </Grid>
                             <Grid item xs={12}>
-                                End Date
+                                <strong style={{ color: '#673ab7' }}>End Date</strong>
                             </Grid>
                             <Grid container spacing={2} sx={{ marginTop: 2 }}>
                                 <Grid item xs={6}>
@@ -283,10 +287,15 @@ const BuyNow = () => {
                                 <></>
                             )}
                             <Grid item xs={12} md={12}>
-                                Pickup & Return Location
+                                <strong style={{ color: '#673ab7' }}>Pickup & Return Location</strong>
                             </Grid>
                             <Grid item xs={12}>
-                                <FormControl sx={{ m: 1, minWidth: 120 }} style={{ marginTop: '20px', marginBottom: '20px' }} size="small">
+                                <FormControl
+                                    fullWidth={true}
+                                    sx={{ m: 1, minWidth: 120 }}
+                                    style={{ marginTop: '20px', marginBottom: '20px' }}
+                                    size="small"
+                                >
                                     <InputLabel id="demo-select-small">Pickup & Return Location</InputLabel>
                                     <Select
                                         labelId="demo-select-small"
@@ -305,7 +314,7 @@ const BuyNow = () => {
                                 </FormControl>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button
+                                {/* <Button
                                     variant="contained"
                                     style={{ marginBottom: '20px' }}
                                     className="continue_btn"
@@ -314,7 +323,27 @@ const BuyNow = () => {
                                     // onClick={handleOpen}
                                 >
                                     <b>Continue</b>
-                                </Button>
+                                </Button> */}
+                                {/* ============ */}
+
+                                <Box sx={{ mt: 2 }}>
+                                    <AnimateButton>
+                                        <Button
+                                            disableElevation
+                                            // disabled={isSubmitting}
+                                            fullWidth
+                                            size="large"
+                                            type="submit"
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={handleContinue}
+                                        >
+                                            Continue
+                                        </Button>
+                                    </AnimateButton>
+                                </Box>
+
+                                {/* ============== */}
                                 <div>
                                     <Modal
                                         open={open}
@@ -351,8 +380,8 @@ const BuyNow = () => {
                                 </div>
                             </Grid>
                             <Grid container item spacing={2}>
-                                <Grid item xs={6}>
-                                    <Button
+                                <Grid item xs={12}>
+                                    {/* <Button
                                         variant="contained"
                                         startIcon={<FavoriteBorderIcon />}
                                         style={{ marginBottom: '20px' }}
@@ -360,9 +389,30 @@ const BuyNow = () => {
                                         fullWidth={true}
                                     >
                                         <b>Add to Favorite</b>
-                                    </Button>
+                                    </Button> */}
+                                    {/* ============ */}
+
+                                    <Box sx={{ mt: 2 }}>
+                                        <AnimateButton>
+                                            <Button
+                                                disableElevation
+                                                // disabled={isSubmitting}
+                                                fullWidth
+                                                size="large"
+                                                type="submit"
+                                                variant="contained"
+                                                color="secondary"
+                                                startIcon={<StarHalfIcon />}
+                                                onClick={() => navigate('/ratings-reviews', { state: location.state.values })}
+                                            >
+                                                Rate Product
+                                            </Button>
+                                        </AnimateButton>
+                                    </Box>
+
+                                    {/* ============== */}
                                 </Grid>
-                                <Grid item xs={6}>
+                                {/* <Grid item xs={6}>
                                     <Button
                                         sx={{ marginTop: 5, marginLeft: 5 }}
                                         variant="contained"
@@ -372,7 +422,7 @@ const BuyNow = () => {
                                     >
                                         <b>Rate Product</b>
                                     </Button>
-                                </Grid>
+                                </Grid> */}
                             </Grid>
                         </Grid>
                     </Grid>

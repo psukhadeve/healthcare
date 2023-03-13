@@ -347,9 +347,10 @@ const FirebaseRegister = ({ ...others }) => {
                         {/* ================================================================================== */}
 
                         <Grid item xs={12} sm={12}>
+                            <strong>Date of Birth</strong>
                             <TextField
                                 fullWidth
-                                label="Date of Birth"
+                                // label="Date of Birth"
                                 margin="normal"
                                 name="Date of Birth"
                                 type="date"

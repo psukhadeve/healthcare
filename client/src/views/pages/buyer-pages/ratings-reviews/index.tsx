@@ -7,6 +7,7 @@ import BannerMessage from 'banner-message';
 // import './Ratings.css';
 
 import MainCard from 'ui-component/cards/MainCard';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 
 const labels: { [index: string]: string } = {
     0.5: 'Useless',
@@ -97,9 +98,9 @@ const RatingsReviewa = () => {
         setItemReview(val);
         if (val.length !== undefined) {
             let len = val.length;
-            if (len >= 12) {
+            if (len >= 128) {
                 setSeverity('warning');
-                setMsg('You reached max allowed character is 12');
+                setMsg('You reached max allowed character is 128');
                 setOpen(true);
                 let timing = setInterval(() => {}, 5000);
                 return () => {
@@ -127,7 +128,7 @@ const RatingsReviewa = () => {
                         <Grid container padding={3} spacing={3}>
                             <Grid xs={12}>
                                 <Typography sx={{ marginLeft: 3, marginTop: 1 }} variant="h6" component="h2">
-                                    Rate this product
+                                    <strong style={{ color: '#673ab7' }}>Rate this product</strong>
                                 </Typography>
                             </Grid>
                             <Grid xs={12}>
@@ -157,7 +158,7 @@ const RatingsReviewa = () => {
                                 </Box>
                             </Grid>
                             <Grid xs={12} item>
-                                <Typography variant="h6" component="h2">
+                                <Typography sx={{ color: '#673ab7' }} variant="h6" component="h2">
                                     Review this product
                                 </Typography>
                             </Grid>
@@ -167,14 +168,31 @@ const RatingsReviewa = () => {
                                     label="Review"
                                     multiline
                                     rows={4}
-                                    inputProps={{ maxLength: 12 }}
+                                    fullWidth={true}
+                                    inputProps={{ maxLength: 128 }}
                                     onChange={(e) => handleItemReview(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button sx={{ marginTop: 5 }} fullWidth variant="contained" onClick={() => handleSubmit()}>
+                                <Box sx={{ mt: 2 }}>
+                                    <AnimateButton>
+                                        <Button
+                                            disableElevation
+                                            // disabled={isSubmitting}
+                                            fullWidth
+                                            size="large"
+                                            type="submit"
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={() => handleSubmit()}
+                                        >
+                                            Submit
+                                        </Button>
+                                    </AnimateButton>
+                                </Box>
+                                {/* <Button sx={{ marginTop: 5 }} fullWidth variant="contained" onClick={() => handleSubmit()}>
                                     Submit
-                                </Button>
+                                </Button> */}
                             </Grid>
                         </Grid>
                     </Paper>

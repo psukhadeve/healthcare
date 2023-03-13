@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './addProduct.css';
 import MainCard from 'ui-component/cards/MainCard';
+import AnimateButton from 'ui-component/extended/AnimateButton';
 
 export interface ILogin {}
 export interface Iselector {
@@ -100,7 +101,7 @@ const AddProducts = () => {
 
     return (
         <>
-            <MainCard title="Add Product">
+            <MainCard title="Create Product Page">
                 <Box
                     sx={{
                         display: 'flex',
@@ -118,11 +119,19 @@ const AddProducts = () => {
                     <Paper>
                         <Grid container spacing={2}>
                             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 20 }}>
-                                <div className="heading">Add Product</div>
+                                <div
+                                    style={{
+                                        color: '#673ab7',
+                                        fontWeight: matchDownSM ? 500 : 900,
+                                        fontSize: matchDownSM ? '20px' : '34px'
+                                    }}
+                                >
+                                    Add Product
+                                </div>
                             </Grid>
                             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <TextField
-                                    sx={{ m: 1, width: '45ch' }}
+                                    sx={{ m: 1, width: matchDownSM ? '40ch' : '45ch' }}
                                     className="text_field"
                                     id="outlined-basic"
                                     label="Product Details"
@@ -134,7 +143,7 @@ const AddProducts = () => {
 
                             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <TextField
-                                    sx={{ m: 1, width: '45ch' }}
+                                    sx={{ m: 1, width: matchDownSM ? '40ch' : '45ch' }}
                                     className="text_field"
                                     id="outlined-basic"
                                     label="Product Price"
@@ -145,7 +154,7 @@ const AddProducts = () => {
                             </Grid>
                             {/*=====================================*/}
                             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <FormControl sx={{ m: 1, minWidth: 355 }} size="small">
+                                <FormControl sx={{ m: 1, minWidth: matchDownSM ? 315 : 355 }} size="small">
                                     <InputLabel id="demo-select-small">Product Type</InputLabel>
                                     <Select
                                         labelId="demo-select-small"
@@ -167,7 +176,7 @@ const AddProducts = () => {
                                 <div style={{ marginTop: 10 }}>
                                     <div className="date">From Date</div>
                                     <TextField
-                                        sx={{ m: 1, width: '45ch' }}
+                                        sx={{ m: 1, width: matchDownSM ? '40ch' : '45ch' }}
                                         className="text_field"
                                         id="outlined-basic"
                                         // label='From'
@@ -181,7 +190,7 @@ const AddProducts = () => {
                                 <div style={{ marginTop: 20 }}>
                                     <div className="date">To Date</div>
                                     <TextField
-                                        sx={{ m: 1, width: '45ch' }}
+                                        sx={{ m: 1, width: matchDownSM ? '40ch' : '45ch' }}
                                         className="text_field"
                                         id="outlined-basic"
                                         // label='To'
@@ -194,14 +203,31 @@ const AddProducts = () => {
                             <Grid item xs={12} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <div>
                                     {/* <div></div> */}
-                                    <Button
+                                    {/* <Button
                                         variant="contained"
                                         color="primary"
                                         startIcon={<CloudUploadIcon />}
                                         onClick={() => setOpen(true)}
                                     >
                                         {txt.toLowerCase()}
-                                    </Button>
+                                    </Button> */}
+                                    <Box sx={{ mt: 2 }}>
+                                        <AnimateButton>
+                                            <Button
+                                                disableElevation
+                                                // disabled={isSubmitting}
+                                                startIcon={<CloudUploadIcon />}
+                                                fullWidth
+                                                size="large"
+                                                type="submit"
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={() => setOpen(true)}
+                                            >
+                                                {txt.toLowerCase()}
+                                            </Button>
+                                        </AnimateButton>
+                                    </Box>
 
                                     <DropzoneDialog
                                         acceptedFiles={['image/*']}
@@ -231,7 +257,7 @@ const AddProducts = () => {
                                     onChange={(event) => setDiscription(event.target.value)}
                                     // sx={{ marginTop: 2 }}
                                     value={getDiscription}
-                                    sx={{ minWidth: 375 }}
+                                    sx={{ minWidth: matchDownSM ? 320 : 375 }}
                                 />
                             </Grid>
                             <Grid
@@ -240,7 +266,7 @@ const AddProducts = () => {
                                 xs={12}
                                 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
-                                <Button
+                                {/* <Button
                                     variant="contained"
                                     onClick={handleSubmit}
                                     size="large"
@@ -250,7 +276,25 @@ const AddProducts = () => {
                                     startIcon={<CloudIcon />}
                                 >
                                     <span style={{ color: '#006142', fontWeight: 600 }}>Submit</span>
-                                </Button>
+                                </Button> */}
+                                <Box sx={{ mt: 2 }}>
+                                    <AnimateButton>
+                                        <Button
+                                            disableElevation
+                                            // disabled={isSubmitting}
+                                            startIcon={<CloudIcon />}
+                                            // {matchDownSM?fullWidth===true:false}
+                                            sx={{ width: matchDownSM ? 320 : 380 }}
+                                            size="large"
+                                            type="submit"
+                                            variant="contained"
+                                            color="secondary"
+                                            onClick={handleSubmit}
+                                        >
+                                            Submit
+                                        </Button>
+                                    </AnimateButton>
+                                </Box>
                             </Grid>
                         </Grid>
                     </Paper>
