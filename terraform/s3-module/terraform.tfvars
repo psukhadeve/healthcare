@@ -1,0 +1,11 @@
+bucket = "healthcare-s3-bucket-01"
+  acl    = "private"
+  force_destroy = true
+  attach_elb_log_delivery_policy = true  # Required for ALB logs
+  attach_lb_log_delivery_policy  = true  # Required for ALB/NLB logs
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false 
+  attach_policy           = false
+  attach_public_policy    = true
