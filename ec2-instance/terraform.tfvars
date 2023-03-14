@@ -1,9 +1,0 @@
-name                   = "Healthcare-jenkins"
-region                 = "us-west-2"
-ami                    = "ami-0d361301d8f7067d5"
-instance_type          = "t2.micro"
-key_name               = "health-care"
-monitoring             = true
-vpc_security_group_ids = ["sg-06f7e7be18716059d"]
-subnet_id              = "subnet-0cd17680491b963d3"
-associate_public_ip_address  = true 
