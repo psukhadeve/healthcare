@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
+import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
 
 const BookedItems = () => {
     const dispatch = useDispatch();
@@ -25,44 +26,44 @@ const BookedItems = () => {
         }
     }, [all_Listed_Items]);
 
-    const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Name', width: 180 },
-        { field: 'type', headerName: 'Type', width: 120 },
-        { field: 'from_date', headerName: 'From Date', width: 180 },
-        {
-            field: 'to_date',
-            headerName: 'To Date',
-            type: 'number',
-            width: 180
-        },
-        {
-            field: 'image_name',
-            headerName: 'Image',
-            description: 'This column has a value getter and is not sortable.',
-            sortable: false,
-            width: 180,
-            valueGetter: (params: GridValueGetterParams) => `${params.row.name || ''}`
-        }
-    ];
-    // const rows: any = [];
-
-    const rows = [
-        { id: 1, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 2, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 3, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 4, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 5, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' },
-        { id: 6, name: 'Snow', type: 'Jon', from_date: '20/12/2022', to_date: '22/12/2022', image_name: '' }
-    ];
-
     return (
         <>
             <MainCard title="Listed Products">
-                <div style={{ height: 670, width: '100%' }}>
-                    <DataGrid rows={List} columns={columns} pageSize={10} rowsPerPageOptions={[5]} checkboxSelection={false} />
+                <div
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '100%',
+                        height: 'auto'
+                    }}
+                >
+                    {List.map((list: any, index: any) => (
+                        <Card sx={{ display: 'flex', background: '#f5f6fa', width: 400, m: 2 }}>
+                            <Avatar
+                                alt="product pic"
+                                sx={{ width: '40%', height: 'auto' }}
+                                variant="rounded"
+                                src={`${list?.base_uri}${list?.img_name[0]}`}
+                            />
+                            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                    <Typography component="div" variant="h5">
+                                        {`${list?.name}`}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                        {`${list?.type}`}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="text.secondary" component="div">
+                                        Availability : {`${list?.from_date} to ${list?.to_date}`}
+                                    </Typography>
+                                </CardContent>
+
+                                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}></Box>
+                            </Box>
+                        </Card>
+                    ))}
                 </div>
             </MainCard>
         </>
