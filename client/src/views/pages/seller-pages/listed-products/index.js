@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
+import Pagination from 'ui-component/pagination/Pagination';
 import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
+import './listed.scss';
 
+let PageSize = 10;
 const BookedItems = () => {
     const dispatch = useDispatch();
 
@@ -13,18 +16,27 @@ const BookedItems = () => {
         dispatch({ type: 'LISTED_ITEMS' });
     }, []);
 
-    const all_Listed_Items = useSelector((state: any) => state?.ListedItemsReducer?.listedItems?.data);
+    const all_Listed_Items = useSelector((state) => state?.ListedItemsReducer?.listedItems?.data);
     console.log('all_Listed_Items out', all_Listed_Items);
     useEffect(() => {
         if (all_Listed_Items === undefined) {
             return;
         } else {
             console.log('all_Listed_Items useEffect', all_Listed_Items);
-            let newRow = all_Listed_Items.map((values: any, index: any) => ({ ...values, id: index + 1 }));
+            let newRow = all_Listed_Items.map((values, index) => ({ ...values, id: index + 1 }));
 
             setList(newRow);
         }
     }, [all_Listed_Items]);
+
+    // =================||PAGINATION||==================//
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return List.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
 
     return (
         <>
@@ -39,7 +51,7 @@ const BookedItems = () => {
                         height: 'auto'
                     }}
                 >
-                    {List.map((list: any, index: any) => (
+                    {currentTableData.map((list, index) => (
                         <Card sx={{ display: 'flex', background: '#f5f6fa', width: 400, m: 2 }}>
                             <Avatar
                                 alt="product pic"
@@ -64,6 +76,14 @@ const BookedItems = () => {
                             </Box>
                         </Card>
                     ))}
+
+                    <Pagination
+                        className="pagination-bar"
+                        currentPage={currentPage}
+                        totalCount={List.length}
+                        pageSize={PageSize}
+                        onPageChange={(page) => setCurrentPage(page)}
+                    />
                 </div>
             </MainCard>
         </>
