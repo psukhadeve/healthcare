@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from 'react-redux';
 import MainCard from 'ui-component/cards/MainCard';
@@ -9,6 +10,7 @@ import './listed.scss';
 let PageSize = 10;
 const BookedItems = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [List, setList] = useState([]);
 
@@ -51,24 +53,27 @@ const BookedItems = () => {
                         height: 'auto'
                     }}
                 >
-                    {currentTableData.map((list, index) => (
-                        <Card sx={{ display: 'flex', background: '#f5f6fa', width: 400, m: 2 }}>
+                    {currentTableData.map((values, index) => (
+                        <Card
+                            onClick={() => navigate('/product-sammary-page', { state: { values } })}
+                            sx={{ display: 'flex', background: '#f5f6fa', width: 400, m: 2 }}
+                        >
                             <Avatar
                                 alt="product pic"
                                 sx={{ width: '40%', height: 'auto' }}
                                 variant="rounded"
-                                src={`${list?.base_uri}${list?.img_name[0]}`}
+                                src={`${values?.base_uri}${values?.img_name[0]}`}
                             />
                             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                                 <CardContent sx={{ flex: '1 0 auto' }}>
                                     <Typography component="div" variant="h5">
-                                        {`${list?.name}`}
+                                        {`${values?.name}`}
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        {`${list?.type}`}
+                                        {`${values?.type}`}
                                     </Typography>
                                     <Typography variant="subtitle1" color="text.secondary" component="div">
-                                        Availability : {`${list?.from_date} to ${list?.to_date}`}
+                                        Availability : {`${values?.from_date} to ${values?.to_date}`}
                                     </Typography>
                                 </CardContent>
 
@@ -76,7 +81,6 @@ const BookedItems = () => {
                             </Box>
                         </Card>
                     ))}
-
                     <Pagination
                         className="pagination-bar"
                         currentPage={currentPage}
