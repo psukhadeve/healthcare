@@ -46,7 +46,7 @@ const Roles: React.FC<{}> = () => {
         <>
             {/* ======================================================= */}
 
-            <Box sx={{ flexGrow: 1 }}>
+            {/* <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static" sx={{ background: '#673ab7' }}>
                     <Toolbar variant="dense">
                         <MenuItem onClick={handleClickOpen}>
@@ -54,12 +54,12 @@ const Roles: React.FC<{}> = () => {
                         </MenuItem>
                     </Toolbar>
                 </AppBar>
-            </Box>
+            </Box> */}
 
             {/* ================================================================ */}
 
             <div>
-                <Dialog
+                {/* <Dialog
                     open={open}
                     TransitionComponent={Transition}
                     keepMounted
@@ -68,39 +68,39 @@ const Roles: React.FC<{}> = () => {
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-slide-description">
-                            <div style={{ marginTop: matchDownSM ? '70%' : '18%' }}>
-                                <Grid container spacing={2}>
-                                    {/* <Grid item xs={12} lg={2}></Grid> */}
-                                    <Grid item xs={12} lg={6} style={{ textAlign: 'center' }}>
-                                        <Link
-                                            to="/register/1"
-                                            style={{
-                                                color: '#673ab7',
-                                                // marginRight: "100px",
-                                                fontSize: '36px'
-                                            }}
-                                        >
-                                            Signup as Seller
-                                        </Link>
-                                    </Grid>
-                                    {/* <Grid item xs={12} lg={2}></Grid> */}
-                                    <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: matchDownSM ? '15%' : 0 }}>
-                                        <Link to="/register/0" style={{ color: '#673ab7', fontSize: '36px' }}>
-                                            Signup as Buyer
-                                        </Link>
-                                    </Grid>
-                                    <Grid item xs={2}></Grid>
-                                </Grid>
-                            </div>
-                        </DialogContentText>
+                        <DialogContentText id="alert-dialog-slide-description"> */}
+                <div style={{ marginTop: matchDownSM ? '70%' : '18%' }}>
+                    <Grid container spacing={2}>
+                        {/* <Grid item xs={12} lg={2}></Grid> */}
+                        <Grid item xs={12} lg={6} style={{ textAlign: 'center' }}>
+                            <Link
+                                to="/register/1"
+                                style={{
+                                    color: '#673ab7',
+                                    // marginRight: "100px",
+                                    fontSize: '36px'
+                                }}
+                            >
+                                Signup as Seller
+                            </Link>
+                        </Grid>
+                        {/* <Grid item xs={12} lg={2}></Grid> */}
+                        <Grid item xs={12} lg={6} style={{ textAlign: 'center', marginTop: matchDownSM ? '15%' : 0 }}>
+                            <Link to="/register/0" style={{ color: '#673ab7', fontSize: '36px' }}>
+                                Signup as Buyer
+                            </Link>
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                </div>
+                {/* </DialogContentText>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}>
                             <span style={{ color: '#000', fontWeight: 600 }}>Close</span>
                         </Button>
                     </DialogActions>
-                </Dialog>
+                </Dialog> */}
             </div>
         </>
     );

@@ -53,7 +53,7 @@ const BuyNow = () => {
 
     const [timeDifference, setTimeDifference] = React.useState(0);
     const [price, setPrice] = React.useState(Number(location.state.values.price));
-
+    const [todayDate, setTodayDate] = React.useState('2023-01-01');
     const [dateStartValue, setDateStartvalue] = React.useState('2023-01-01');
     const [dateStartMS, setDateStartMS] = React.useState(0);
     const [timeStartValue, setTimeStartvalue] = React.useState('00:00');
@@ -144,6 +144,38 @@ const BuyNow = () => {
         genRandomKey();
     }, []);
     console.log('location>>>ss', location);
+    useEffect(() => {
+        var currentdate = new Date();
+        // var todayDatee = currentdate.getDate() + '-' + (currentdate.getMonth() + 1) + '-' + currentdate.getFullYear();
+        var todayDatee =
+            currentdate.getFullYear() +
+            '-' +
+            (currentdate.getMonth() + 1 <= 9 ? 0 + currentdate.getMonth() + 1 : currentdate.getMonth() + 1) +
+            '-' +
+            currentdate.getDate();
+        setTodayDate(todayDatee);
+        console.log('todayDatee', todayDatee);
+    }, []);
+    console.log(
+        'location.state.values.to_date>>',
+        location.state.values.to_date,
+        new Date(location.state.values.to_date).valueOf(),
+        { todayDate },
+        new Date(todayDate).valueOf()
+    );
+    const OutOfStock = () => {
+        let valueOfToDate = new Date(location.state.values.to_date).valueOf();
+        let valueOfToday = new Date(todayDate).valueOf();
+
+        console.log('valueOfToDate>>', valueOfToDate, 'valueOfToday>>', valueOfToday);
+
+        if (valueOfToday < valueOfToDate) {
+            return `This item will be available from ${todayDate} to ${location.state.values.to_date}`;
+        } else {
+            return `Out of Stock`;
+        }
+    };
+
     return (
         <>
             <MainCard title="Product Summary Page">
@@ -214,6 +246,12 @@ const BuyNow = () => {
                             </Grid>
                             <Grid item xs={12}>
                                 <strong>${price} x 1 day</strong>
+                            </Grid>
+                            <Grid item xs={12} md={12}>
+                                <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <strong style={{ color: 'green' }}>{OutOfStock()}</strong>
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <Divider orientation="horizontal" sx={{ marginTop: '20px', marginBottom: '20px' }} />
