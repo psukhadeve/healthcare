@@ -13,6 +13,7 @@ var uploadProductsStructure=new Schema({
     ratins:String,
     base_uri:String,
     img_name:Array,
+    price:String
    
 },{
     timestamps: true

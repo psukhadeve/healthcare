@@ -6,7 +6,7 @@ import pages from './pages';
 import { NavItemType } from 'types';
 
 // ==============================|| MENU ITEMS ||============================== //
-
+const role = localStorage.getItem('role_id');
 const menuItems: { items: NavItemType[] } = {
     items: [pages, other]
 };

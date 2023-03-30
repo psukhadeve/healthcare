@@ -44,19 +44,27 @@ const other: NavItemType = {
         //     icon: icons.IconBrandChrome,
         //     breadcrumbs: false
         // },
-        {
-            id: 'product-ratings',
-            title: <FormattedMessage id="product-ratings" />,
-            type: 'item',
-            url: '/product-ratings',
-            icon: icons.IconBrandChrome,
-            breadcrumbs: false
-        },
+        // {
+        //     id: 'product-ratings',
+        //     title: <FormattedMessage id="product-ratings" />,
+        //     type: 'item',
+        //     url: '/product-ratings',
+        //     icon: icons.IconBrandChrome,
+        //     breadcrumbs: false
+        // },
         {
             id: 'add-products',
             title: <FormattedMessage id="add-products" />,
             type: 'item',
             url: '/add-products',
+            icon: icons.IconBrandChrome,
+            breadcrumbs: false
+        },
+        {
+            id: 'buy-products',
+            title: <FormattedMessage id="buy-products" />,
+            type: 'item',
+            url: '/buy-products',
             icon: icons.IconBrandChrome,
             breadcrumbs: false
         }

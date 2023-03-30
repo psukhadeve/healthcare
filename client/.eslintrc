@@ -23,7 +23,12 @@
             }
         ],
         "default-param-last": "off",
-        "@typescript-eslint/default-param-last": "warn",
+        "no-shadowed-variable": 0,
+        "@typescript-eslint/default-param-last": 0,
+        // "no-shadow": "off",
+        "no-extraneous-dependencies":false,
+        "import/no-extraneous-dependencies":false,
+        "@typescript-eslint/no-shadow": "warn",
         "react/jsx-filename-extension": 0,
         "no-param-reassign": 0,
         "react/prop-types": 0,

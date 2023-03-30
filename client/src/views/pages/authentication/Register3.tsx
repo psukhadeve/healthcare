@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { Divider, Grid, Stack, Typography, useMediaQuery } from '@mui/material';
@@ -18,8 +18,12 @@ import useAuth from 'hooks/useAuth';
 
 const Register = () => {
     const theme = useTheme();
+    const navigate = useNavigate();
+
     const { isLoggedIn } = useAuth();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
+
+    // console.log('roleId', roleId);
 
     return (
         <AuthWrapper1>
@@ -71,7 +75,8 @@ const Register = () => {
                                         <Grid item container direction="column" alignItems="center" xs={12}>
                                             <Typography
                                                 component={Link}
-                                                to={isLoggedIn ? '/pages/login/login3' : '/login'}
+                                                // to={isLoggedIn ? '/pages/login/login3' : '/login'}
+                                                to={'/login'}
                                                 variant="subtitle1"
                                                 sx={{ textDecoration: 'none' }}
                                             >
